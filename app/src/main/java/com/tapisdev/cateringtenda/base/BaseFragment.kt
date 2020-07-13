@@ -29,14 +29,19 @@ open class BaseFragment : Fragment() {
     }
 
     fun showErrorMessage(message : String){
-        SweetAlertDialog(activity, SweetAlertDialog.ERROR_TYPE)
+       /* SweetAlertDialog(activity, SweetAlertDialog.ERROR_TYPE)
             .setTitleText("Oops...")
             .setContentText(message)
-            .show()
+            .show()*/
+        activity?.let { Toasty.error(it, message, Toast.LENGTH_SHORT, true).show() }
     }
 
     fun showLongErrorMessage(message : String){
         activity?.let { Toasty.error(it, message, Toast.LENGTH_LONG, true).show() }
+    }
+
+    fun showSuccessMessage(message : String){
+        activity?.let { Toasty.success(it, message, Toast.LENGTH_LONG, true).show() }
     }
 
     fun showInfoMessage(message : String){

@@ -16,5 +16,8 @@
             android:id="@+id/nav_pesanan"
             android:icon="@drawable/ic_add_shopping_cart_black_24dp"
             android:title="Data Pesanan" />
+        <item
+            android:id="@+id/nav_logout"
+            android:title="Logout" />
     </group>
 </menu>

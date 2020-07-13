@@ -10,8 +10,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
+import com.makeramen.roundedimageview.RoundedImageView
 import com.tapisdev.cateringtenda.R
 import com.tapisdev.cateringtenda.fragment.AdminCateringFragment
+import com.tapisdev.cateringtenda.fragment.AdminPesananFragment
 import com.tapisdev.cateringtenda.fragment.AdminTendaFragment
 import kotlinx.android.synthetic.main.activity_dashboard_admin.*
 import kotlinx.android.synthetic.main.nav_header_dashboard_admin.*
@@ -19,9 +21,9 @@ import kotlinx.android.synthetic.main.nav_header_dashboard_admin.*
 class DashboardAdminActivity : AppCompatActivity(),
     NavigationView.OnNavigationItemSelectedListener {
 
-    private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var mToggle : ActionBarDrawerToggle
     private lateinit var tvProfileName : TextView
+    private lateinit var ivProfile : RoundedImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,21 +44,21 @@ class DashboardAdminActivity : AppCompatActivity(),
         nav_view.setNavigationItemSelectedListener(this)
         val headerView = nav_view.getHeaderView(0)
         tvProfileName = headerView.findViewById(R.id.tvProfileName)
+        ivProfile = headerView.findViewById(R.id.ivProfile)
 
-        tvProfileName.setText("nama saya")
 
 
         val fragment = AdminCateringFragment.newInstance()
         addFragment(fragment)
 
 
+        updateUI()
+
     }
 
-    /*override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.dashboard_admin, menu)
-        return true
-    }*/
+    fun updateUI(){
+        tvProfileName.setText("nama saya")
+    }
 
     override fun onOptionsItemSelected(item: android.view.MenuItem): Boolean {
         return mToggle.onOptionsItemSelected(item)
@@ -71,6 +73,13 @@ class DashboardAdminActivity : AppCompatActivity(),
             R.id.nav_tenda -> {
                 val fragment = AdminTendaFragment.newInstance()
                 addFragment(fragment)
+            }
+            R.id.nav_pesanan -> {
+                val fragment = AdminPesananFragment.newInstance()
+                addFragment(fragment)
+            }
+            R.id.nav_logout -> {
+
             }
         }
         drawer_layout.closeDrawer(GravityCompat.START)
@@ -94,8 +103,4 @@ class DashboardAdminActivity : AppCompatActivity(),
             .commit()
     }
 
-    /*override fun onSupportNavigateUp(): Boolean {
-        val navController = findNavController(R.id.nav_host_fragment)
-        return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
-    }*/
 }

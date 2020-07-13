@@ -136,7 +136,6 @@
             android:background="@drawable/bg_editfield"
             android:backgroundTint="@color/light_orange"
             android:gravity="center_horizontal"
-            android:onClick="onClick"
             android:padding="10sp"
             android:text="Daftar"
             android:textColor="@color/white"
