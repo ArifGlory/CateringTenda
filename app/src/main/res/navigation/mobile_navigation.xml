@@ -9,7 +9,7 @@
         android:id="@+id/nav_home"
         android:name="com.tapisdev.cateringtenda.activity.admin.ui.home.HomeFragment"
         android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home">
+        tools:layout="@layout/fragment_admin_catering">
 
         <action
             android:id="@+id/action_HomeFragment_to_HomeSecondFragment"

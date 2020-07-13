@@ -16,7 +16,7 @@
         tools:replace="android:icon">
         <activity
             android:name=".activity.admin.DashboardAdminActivity"
-            android:label="@string/title_activity_dashboard_admin"
+            android:label="Dashboard Admin"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".activity.RegisterActivity"
