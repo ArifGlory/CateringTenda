@@ -8,12 +8,14 @@ import com.tapisdev.cateringtenda.MainActivity
 import com.tapisdev.cateringtenda.R
 import com.tapisdev.cateringtenda.activity.admin.DashboardAdminActivity
 import com.tapisdev.cateringtenda.base.BaseActivity
+import com.tapisdev.cateringtenda.model.UserPreference
 
 class SplashActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
+        mUserPref = UserPreference(this)
 
         if (auth.currentUser != null){
             Log.d("userpref"," jenis user : "+mUserPref.getJenisUser())

@@ -1,5 +1,6 @@
 package com.tapisdev.cateringtenda.activity.admin
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.TextView
@@ -11,14 +12,18 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import com.makeramen.roundedimageview.RoundedImageView
+import com.tapisdev.cateringtenda.MainActivity
 import com.tapisdev.cateringtenda.R
+import com.tapisdev.cateringtenda.base.BaseActivity
 import com.tapisdev.cateringtenda.fragment.AdminCateringFragment
 import com.tapisdev.cateringtenda.fragment.AdminPesananFragment
 import com.tapisdev.cateringtenda.fragment.AdminTendaFragment
+import com.tapisdev.cateringtenda.model.UserModel
+import com.tapisdev.cateringtenda.model.UserPreference
 import kotlinx.android.synthetic.main.activity_dashboard_admin.*
 import kotlinx.android.synthetic.main.nav_header_dashboard_admin.*
 
-class DashboardAdminActivity : AppCompatActivity(),
+class DashboardAdminActivity : BaseActivity(),
     NavigationView.OnNavigationItemSelectedListener {
 
     private lateinit var mToggle : ActionBarDrawerToggle
@@ -28,6 +33,7 @@ class DashboardAdminActivity : AppCompatActivity(),
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dashboard_admin)
+        mUserPref = UserPreference(this)
 
         val toolbar: Toolbar = findViewById(R.id.toolbar_main)
         setSupportActionBar(toolbar)
@@ -79,7 +85,10 @@ class DashboardAdminActivity : AppCompatActivity(),
                 addFragment(fragment)
             }
             R.id.nav_logout -> {
-
+                auth.signOut()
+                clearSession()
+                val i = Intent(applicationContext,MainActivity::class.java)
+                startActivity(i)
             }
         }
         drawer_layout.closeDrawer(GravityCompat.START)
@@ -101,6 +110,14 @@ class DashboardAdminActivity : AppCompatActivity(),
             .setCustomAnimations(R.anim.design_bottom_sheet_slide_in, R.anim.design_bottom_sheet_slide_out)
             .replace(R.id.content, fragment, fragment.javaClass.getSimpleName())
             .commit()
+    }
+
+    fun clearSession(){
+        mUserPref.saveName("")
+        mUserPref.saveEmail("")
+        mUserPref.saveFoto("")
+        mUserPref.saveJenisUser("none")
+        mUserPref.savePhone("")
     }
 
 }

@@ -17,7 +17,7 @@ open class BaseActivity : AppCompatActivity() {
     lateinit var pDialogLoading : SweetAlertDialog
     var auth: FirebaseAuth = FirebaseAuth.getInstance()
     lateinit var currentUser : FirebaseUser
-    var mUserPref : UserPreference = UserPreference()
+    lateinit var mUserPref : UserPreference
 
     val myDB = FirebaseFirestore.getInstance()
     val userRef = myDB.collection("users")
@@ -29,6 +29,7 @@ open class BaseActivity : AppCompatActivity() {
         pDialogLoading.progressHelper.barColor = Color.parseColor("#A5DC86")
         pDialogLoading.setTitleText("Loading..")
         pDialogLoading.setCancelable(false)
+
     }
 
     open fun showLoading(mcontext : Context){

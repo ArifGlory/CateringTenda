@@ -12,6 +12,7 @@ import com.tapisdev.cateringtenda.MainActivity
 import com.tapisdev.cateringtenda.R
 import com.tapisdev.cateringtenda.base.BaseActivity
 import com.tapisdev.cateringtenda.model.UserModel
+import com.tapisdev.cateringtenda.model.UserPreference
 import kotlinx.android.synthetic.main.activity_register.*
 
 class RegisterActivity : BaseActivity() {
@@ -24,6 +25,7 @@ class RegisterActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
+        mUserPref = UserPreference(this)
 
         tvLogin.setOnClickListener {
             val i = Intent(applicationContext,MainActivity::class.java)
@@ -114,8 +116,13 @@ class RegisterActivity : BaseActivity() {
                 }
             }else{
                 dismissLoading()
-                showLongErrorMessage("Error pendaftaran, coba lagi nanti ")
-                Log.d(TAG_SIMPAN,"err : "+task.exception)
+                if(task.exception?.equals("com.google.firebase.auth.FirebaseAuthUserCollisionException: The email address is already in use by another account.")!!){
+                    showLongErrorMessage("Email sudah pernah digunakan ")
+                }else{
+                    showLongErrorMessage("Error pendaftaran, coba lagi nanti ")
+                    Log.d(TAG_SIMPAN,"err : "+task.exception)
+                }
+
             }
         })
     }

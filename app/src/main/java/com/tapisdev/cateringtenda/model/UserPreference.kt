@@ -1,16 +1,17 @@
 package com.tapisdev.cateringtenda.model
 
 import android.content.Context
-import android.content.SharedPreferences
 
-class UserPreference() {
+class UserPreference(context: Context) {
     private val KEY_NAME = "name"
     private val KEY_JENIS_USER = "jenis_user"
     private val KEY_EMAIL = "email"
     private val KEY_FOTO = "foto"
     private val KEY_PHONE = "phone"
 
-    private val preferences: SharedPreferences? = null
+    var PREFS_NAME = "UserPref"
+    private val preferences  = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+
 
     fun saveName(text : String){
         val editor = preferences!!.edit()
