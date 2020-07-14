@@ -119,7 +119,7 @@ class RegisterActivity : BaseActivity() {
                 if(task.exception?.equals("com.google.firebase.auth.FirebaseAuthUserCollisionException: The email address is already in use by another account.")!!){
                     showLongErrorMessage("Email sudah pernah digunakan ")
                 }else{
-                    showLongErrorMessage("Error pendaftaran, coba lagi nanti ")
+                    showLongErrorMessage("Error pendaftaran, Cek apakah email sudah pernah digunakan / belum dan  coba lagi nanti ")
                     Log.d(TAG_SIMPAN,"err : "+task.exception)
                 }
 

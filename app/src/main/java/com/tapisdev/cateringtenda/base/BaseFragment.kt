@@ -1,15 +1,28 @@
 package com.tapisdev.cateringtenda.base
 
+import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import cn.pedant.SweetAlert.SweetAlertDialog
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.firestore.FirebaseFirestore
+import com.tapisdev.cateringtenda.model.UserPreference
 import es.dmoral.toasty.Toasty
 
 open class BaseFragment : Fragment() {
 
     lateinit var pDialogLoading : SweetAlertDialog
+    var auth: FirebaseAuth = FirebaseAuth.getInstance()
+    lateinit var currentUser : FirebaseUser
+    lateinit var mUserPref : UserPreference
+
+    val myDB = FirebaseFirestore.getInstance()
+    val userRef = myDB.collection("users")
+    val cateringRef = myDB.collection("catering")
+    val tendaRef = myDB.collection("tenda")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,7 +33,12 @@ open class BaseFragment : Fragment() {
         pDialogLoading.setCancelable(false)
     }
 
-    open fun showLoading(){
+    open fun showLoading(mcontext : Context){
+        pDialogLoading = SweetAlertDialog(mcontext, SweetAlertDialog.PROGRESS_TYPE)
+        pDialogLoading.progressHelper.barColor = Color.parseColor("#A5DC86")
+        pDialogLoading.setTitleText("Loading..")
+        pDialogLoading.setCancelable(false)
+
         pDialogLoading.show()
     }
 
@@ -50,6 +68,13 @@ open class BaseFragment : Fragment() {
 
     fun showWarningMessage(message : String){
         activity?.let { Toasty.warning(it, message, Toast.LENGTH_SHORT, true).show() }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        if (auth.currentUser != null){
+            currentUser = auth.currentUser!!
+        }
     }
 }
 

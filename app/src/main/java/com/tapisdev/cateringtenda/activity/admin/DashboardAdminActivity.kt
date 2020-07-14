@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
 import com.makeramen.roundedimageview.RoundedImageView
 import com.tapisdev.cateringtenda.MainActivity
 import com.tapisdev.cateringtenda.R
@@ -53,17 +54,22 @@ class DashboardAdminActivity : BaseActivity(),
         ivProfile = headerView.findViewById(R.id.ivProfile)
 
 
-
         val fragment = AdminCateringFragment.newInstance()
         addFragment(fragment)
 
 
         updateUI()
-
     }
 
     fun updateUI(){
-        tvProfileName.setText("nama saya")
+        tvProfileName.setText(mUserPref.getName())
+        if (!mUserPref.getFoto().equals("") || mUserPref.getFoto() != null){
+            Glide.with(this)
+                .load(mUserPref.getFoto())
+                .into(ivProfile)
+        }else{
+            ivProfile.setImageResource(R.drawable.ic_placeholder)
+        }
     }
 
     override fun onOptionsItemSelected(item: android.view.MenuItem): Boolean {
