@@ -9,6 +9,7 @@ import cn.pedant.SweetAlert.SweetAlertDialog
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.FirebaseFirestoreSettings
 import com.tapisdev.cateringtenda.model.UserPreference
 import es.dmoral.toasty.Toasty
 
@@ -21,6 +22,8 @@ open class BaseActivity : AppCompatActivity() {
 
     val myDB = FirebaseFirestore.getInstance()
     val userRef = myDB.collection("users")
+    val cateringRef = myDB.collection("catering")
+    val tendaRef = myDB.collection("tenda")
 
     override fun setContentView(view: View?) {
         super.setContentView(view)
@@ -29,6 +32,9 @@ open class BaseActivity : AppCompatActivity() {
         pDialogLoading.progressHelper.barColor = Color.parseColor("#A5DC86")
         pDialogLoading.setTitleText("Loading..")
         pDialogLoading.setCancelable(false)
+
+        var settings = FirebaseFirestoreSettings.Builder().setTimestampsInSnapshotsEnabled(true).build()
+        myDB.firestoreSettings = settings
 
     }
 
