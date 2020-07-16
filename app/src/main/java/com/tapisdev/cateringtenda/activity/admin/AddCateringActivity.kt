@@ -8,8 +8,10 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
+import android.widget.Toast
 import com.google.android.gms.tasks.Continuation
 import com.google.android.gms.tasks.Task
+import com.google.common.io.Files.getFileExtension
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.UploadTask
@@ -18,6 +20,7 @@ import com.tapisdev.cateringtenda.base.BaseActivity
 import com.tapisdev.cateringtenda.model.Catering
 import com.tapisdev.cateringtenda.util.PermissionHelper
 import kotlinx.android.synthetic.main.activity_add_catering.*
+import java.io.ByteArrayOutputStream
 import java.io.IOException
 import java.util.*
 
@@ -32,11 +35,14 @@ class AddCateringActivity : BaseActivity(), PermissionHelper.PermissionListener 
     private var storageReference: StorageReference? = null
 
     lateinit var  permissionHelper : PermissionHelper
-    lateinit var fotoBitmap : Bitmap
+    var fotoBitmap : Bitmap? = null
+    private var fileUri: Uri? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_catering)
+
+        storageReference = FirebaseStorage.getInstance().reference.child("images")
 
         permissionHelper = PermissionHelper(this)
         permissionHelper.setPermissionListener(this)
@@ -64,6 +70,7 @@ class AddCateringActivity : BaseActivity(), PermissionHelper.PermissionListener 
             }
 
             filePath = data.data
+            fileUri = data.data
             try {
                 val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, filePath)
                 fotoBitmap = bitmap
@@ -100,6 +107,60 @@ class AddCateringActivity : BaseActivity(), PermissionHelper.PermissionListener 
 
     fun uploadCatering(){
         showLoading(this)
+
+        if (fileUri != null){
+            Log.d(TAG_SIMPAN,"uri :"+fileUri.toString())
+
+            val baos = ByteArrayOutputStream()
+            fotoBitmap?.compress(Bitmap.CompressFormat.JPEG,50,baos)
+            val data: ByteArray = baos.toByteArray()
+
+            val fileReference = storageReference!!.child(System.currentTimeMillis().toString())
+            val uploadTask = fileReference.putBytes(data)
+
+            uploadTask.addOnFailureListener {
+                    exception -> Log.d(TAG_SIMPAN, exception.toString())
+            }.addOnSuccessListener {
+                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
+                showSuccessMessage("Image Berhasil di upload")
+                uploadTask.continueWithTask { task ->
+                    if (!task.isSuccessful) {
+                    }
+
+                    fileReference.downloadUrl
+                }.addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        val downloadUri = task.result
+
+                        //DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("users").child(mAu.getInstance().getCurrentUser().getUid());
+                        val url = downloadUri!!.toString()
+                        Log.d(TAG_SIMPAN,"download URL : "+ downloadUri.toString())// This is the one you should store
+                        cateringModel.foto = url
+                        saveCatering()
+                        //   Upload upload = new Upload(editTextName.getText().toString().trim(),
+
+                        // Toast.makeText(getContext(),url,Toast.LENGTH_LONG).show();
+                        //  String uploadId = ref.push().getKey();
+                        //ref.child(uploadId).setValue(upload);
+
+
+                    } else {
+                        dismissLoading()
+                        showErrorMessage("Terjadi kesalahan, coba lagi nanti")
+                    }
+                }
+            }.addOnProgressListener { taskSnapshot ->
+                val progress = 100.0 * taskSnapshot.bytesTransferred / taskSnapshot.totalByteCount
+                pDialogLoading.setTitleText("Uploaded " + progress.toInt() + "%...")
+            }
+
+
+        }else{
+            dismissLoading()
+            showErrorMessage("Anda belum memilih file")
+        }
+
+        /*//upload with filepath
         if(filePath != null){
             val ref = storageReference?.child("images/"+UUID.randomUUID().toString())
             val uploadTask = ref?.putFile(filePath!!)
@@ -131,7 +192,7 @@ class AddCateringActivity : BaseActivity(), PermissionHelper.PermissionListener 
         }else{
             dismissLoading()
             showErrorMessage("Anda belum memilih file")
-        }
+        }*/
     }
 
     fun saveCatering(){

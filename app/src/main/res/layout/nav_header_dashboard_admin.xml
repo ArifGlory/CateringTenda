@@ -7,6 +7,7 @@
     android:layout_height="wrap_content">
     <RelativeLayout
         android:layout_width="match_parent"
+        android:id="@+id/rlNavHeader"
         android:layout_height="160dp">
         <RelativeLayout
             android:layout_width="match_parent"

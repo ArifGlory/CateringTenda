@@ -2,7 +2,9 @@ package com.tapisdev.cateringtenda.activity.admin
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
+import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import com.google.android.material.navigation.NavigationView
@@ -30,6 +32,7 @@ class DashboardAdminActivity : BaseActivity(),
     private lateinit var mToggle : ActionBarDrawerToggle
     private lateinit var tvProfileName : TextView
     private lateinit var ivProfile : RoundedImageView
+    private lateinit var rlNavHeader : RelativeLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,7 +55,11 @@ class DashboardAdminActivity : BaseActivity(),
         val headerView = nav_view.getHeaderView(0)
         tvProfileName = headerView.findViewById(R.id.tvProfileName)
         ivProfile = headerView.findViewById(R.id.ivProfile)
-
+        rlNavHeader = headerView.findViewById(R.id.rlNavHeader)
+        rlNavHeader.setOnClickListener {
+            val i = Intent(applicationContext,EditProfilAdminActivity::class.java)
+            startActivity(i)
+        }
 
         val fragment = AdminCateringFragment.newInstance()
         addFragment(fragment)
@@ -63,12 +70,12 @@ class DashboardAdminActivity : BaseActivity(),
 
     fun updateUI(){
         tvProfileName.setText(mUserPref.getName())
-        if (!mUserPref.getFoto().equals("") || mUserPref.getFoto() != null){
+        if (mUserPref.getFoto().equals("")){
+            ivProfile.setImageResource(R.drawable.ic_placeholder)
+        }else{
             Glide.with(this)
                 .load(mUserPref.getFoto())
                 .into(ivProfile)
-        }else{
-            ivProfile.setImageResource(R.drawable.ic_placeholder)
         }
     }
 
@@ -124,6 +131,11 @@ class DashboardAdminActivity : BaseActivity(),
         mUserPref.saveFoto("")
         mUserPref.saveJenisUser("none")
         mUserPref.savePhone("")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        updateUI()
     }
 
 }

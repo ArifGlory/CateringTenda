@@ -17,8 +17,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:icon">
-        <activity android:name=".activity.admin.AddCateringActivity"
+        <activity android:name=".activity.admin.EditProfilAdminActivity"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".activity.admin.AddCateringActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.admin.DashboardAdminActivity"
             android:label="Dashboard Admin"
@@ -37,7 +40,7 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

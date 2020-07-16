@@ -72,6 +72,7 @@ class AdminCateringFragment : BaseFragment() {
                 Log.d(TAG_GET_CATERING, "Datanya : "+document.data)
 
                 var catering : Catering = document.toObject(Catering::class.java)
+                catering.cateringId = document.id
                 if (catering.idAdmin.equals(auth.currentUser?.uid)){
                     listCatering.add(catering)
                 }
