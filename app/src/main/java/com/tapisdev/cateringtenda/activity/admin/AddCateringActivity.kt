@@ -137,13 +137,6 @@ class AddCateringActivity : BaseActivity(), PermissionHelper.PermissionListener 
                         Log.d(TAG_SIMPAN,"download URL : "+ downloadUri.toString())// This is the one you should store
                         cateringModel.foto = url
                         saveCatering()
-                        //   Upload upload = new Upload(editTextName.getText().toString().trim(),
-
-                        // Toast.makeText(getContext(),url,Toast.LENGTH_LONG).show();
-                        //  String uploadId = ref.push().getKey();
-                        //ref.child(uploadId).setValue(upload);
-
-
                     } else {
                         dismissLoading()
                         showErrorMessage("Terjadi kesalahan, coba lagi nanti")
@@ -196,6 +189,7 @@ class AddCateringActivity : BaseActivity(), PermissionHelper.PermissionListener 
     }
 
     fun saveCatering(){
+        pDialogLoading.setTitleText("menyimpan data..")
         showInfoMessage("Sedang menyimpan ke database..")
         cateringRef.document().set(cateringModel).addOnCompleteListener{
             task ->

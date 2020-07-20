@@ -69,7 +69,7 @@ class AdminCateringFragment : BaseFragment() {
             //Log.d(TAG_GET_CATERING," datanya "+result.documents)
             showSuccessMessage("Data berhasil diambil")
             for (document in result){
-                Log.d(TAG_GET_CATERING, "Datanya : "+document.data)
+                //Log.d(TAG_GET_CATERING, "Datanya : "+document.data)
 
                 var catering : Catering = document.toObject(Catering::class.java)
                 catering.cateringId = document.id

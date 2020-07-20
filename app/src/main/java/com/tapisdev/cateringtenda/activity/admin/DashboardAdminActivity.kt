@@ -1,19 +1,18 @@
 package com.tapisdev.cateringtenda.activity.admin
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
-import com.google.android.material.navigation.NavigationView
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
+import com.google.android.material.navigation.NavigationView
 import com.makeramen.roundedimageview.RoundedImageView
 import com.tapisdev.cateringtenda.MainActivity
 import com.tapisdev.cateringtenda.R
@@ -21,10 +20,8 @@ import com.tapisdev.cateringtenda.base.BaseActivity
 import com.tapisdev.cateringtenda.fragment.AdminCateringFragment
 import com.tapisdev.cateringtenda.fragment.AdminPesananFragment
 import com.tapisdev.cateringtenda.fragment.AdminTendaFragment
-import com.tapisdev.cateringtenda.model.UserModel
 import com.tapisdev.cateringtenda.model.UserPreference
 import kotlinx.android.synthetic.main.activity_dashboard_admin.*
-import kotlinx.android.synthetic.main.nav_header_dashboard_admin.*
 
 class DashboardAdminActivity : BaseActivity(),
     NavigationView.OnNavigationItemSelectedListener {
@@ -33,6 +30,7 @@ class DashboardAdminActivity : BaseActivity(),
     private lateinit var tvProfileName : TextView
     private lateinit var ivProfile : RoundedImageView
     private lateinit var rlNavHeader : RelativeLayout
+    var listener: DialogInterface.OnClickListener? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -113,7 +111,24 @@ class DashboardAdminActivity : BaseActivity(),
         if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
             drawer_layout.closeDrawer(GravityCompat.START)
         } else {
-            super.onBackPressed()
+           // super.onBackPressed()
+            val builder =
+                AlertDialog.Builder(this)
+            builder.setMessage("Apakan anda ingin keluar dari aplikasi ? ")
+            builder.setCancelable(false)
+
+            listener = DialogInterface.OnClickListener { dialog, which ->
+                if (which == DialogInterface.BUTTON_POSITIVE) {
+                    finishAffinity()
+                    System.exit(0)
+                }
+                if (which == DialogInterface.BUTTON_NEGATIVE) {
+                    dialog.cancel()
+                }
+            }
+            builder.setPositiveButton("Ya", listener)
+            builder.setNegativeButton("Tidak", listener)
+            builder.show()
         }
     }
 

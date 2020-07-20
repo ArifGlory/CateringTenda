@@ -13,4 +13,4 @@ data class Catering(
     var foto: String? = "",
     var deksripsi: String? = "",
     var idAdmin: String? = ""
-) : Parcelable
+) : Parcelable, java.io.Serializable
