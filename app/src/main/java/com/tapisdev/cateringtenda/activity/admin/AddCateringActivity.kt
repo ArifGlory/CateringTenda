@@ -153,39 +153,6 @@ class AddCateringActivity : BaseActivity(), PermissionHelper.PermissionListener 
             showErrorMessage("Anda belum memilih file")
         }
 
-        /*//upload with filepath
-        if(filePath != null){
-            val ref = storageReference?.child("images/"+UUID.randomUUID().toString())
-            val uploadTask = ref?.putFile(filePath!!)
-
-            val urlTask = uploadTask?.continueWithTask(Continuation<UploadTask.TaskSnapshot, Task<Uri>> { task ->
-                if (!task.isSuccessful) {
-                    dismissLoading()
-                    showErrorMessage("terjadi kesalahan, coba lagi nanti")
-                    task.exception?.let {
-                        throw it
-                    }
-                }
-                return@Continuation ref.downloadUrl
-            })?.addOnCompleteListener{
-                task ->
-                if (task.isSuccessful){
-                    showInfoMessage("upload gambar sukses..")
-                    val downloadUri = task.result
-                    Log.d(TAG_SIMPAN,"downlaod uri : "+downloadUri.toString())
-
-                    cateringModel.foto = downloadUri.toString()
-                    saveCatering()
-                }else{
-                    dismissLoading()
-                    showErrorMessage("Gagal mengupload gambar")
-                    Log.d(TAG_SIMPAN,"err : "+task.exception)
-                }
-            }
-        }else{
-            dismissLoading()
-            showErrorMessage("Anda belum memilih file")
-        }*/
     }
 
     fun saveCatering(){
