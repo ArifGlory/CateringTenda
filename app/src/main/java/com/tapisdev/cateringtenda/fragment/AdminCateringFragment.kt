@@ -14,6 +14,7 @@ import com.tapisdev.cateringtenda.activity.admin.AddCateringActivity
 import com.tapisdev.cateringtenda.adapter.AdapterCatering
 import com.tapisdev.cateringtenda.base.BaseFragment
 import com.tapisdev.cateringtenda.model.Catering
+import kotlinx.android.synthetic.main.fragment_admin_tenda.*
 
 class AdminCateringFragment : BaseFragment() {
 
@@ -61,21 +62,23 @@ class AdminCateringFragment : BaseFragment() {
     }
 
     fun getDataMyCatering(){
-        //activity?.applicationContext?.let { showLoading(it) }
-        showInfoMessage("sedang mengambil data..")
-
         cateringRef.get().addOnSuccessListener { result ->
             listCatering.clear()
             //Log.d(TAG_GET_CATERING," datanya "+result.documents)
-            showSuccessMessage("Data berhasil diambil")
             for (document in result){
                 //Log.d(TAG_GET_CATERING, "Datanya : "+document.data)
-
                 var catering : Catering = document.toObject(Catering::class.java)
                 catering.cateringId = document.id
                 if (catering.idAdmin.equals(auth.currentUser?.uid)){
                     listCatering.add(catering)
                 }
+            }
+            if (listCatering.size == 0){
+                animation_view.setAnimation(R.raw.empty_box)
+                animation_view.playAnimation()
+                animation_view.loop(false)
+            }else{
+                animation_view.visibility = View.INVISIBLE
             }
             adapter.notifyDataSetChanged()
 

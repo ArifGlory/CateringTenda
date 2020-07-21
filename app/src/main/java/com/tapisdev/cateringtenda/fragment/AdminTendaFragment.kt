@@ -18,6 +18,7 @@ import com.tapisdev.cateringtenda.adapter.AdapterTenda
 import com.tapisdev.cateringtenda.base.BaseFragment
 import com.tapisdev.cateringtenda.model.Catering
 import com.tapisdev.cateringtenda.model.Tenda
+import kotlinx.android.synthetic.main.fragment_admin_tenda.*
 
 class AdminTendaFragment : BaseFragment() {
 
@@ -65,21 +66,24 @@ class AdminTendaFragment : BaseFragment() {
     }
 
     fun getDataMyTenda(){
-        //activity?.applicationContext?.let { showLoading(it) }
-        showInfoMessage("sedang mengambil data..")
-
-        cateringRef.get().addOnSuccessListener { result ->
+        tendaRef.get().addOnSuccessListener { result ->
             listTenda.clear()
             //Log.d(TAG_GET_CATERING," datanya "+result.documents)
-            showSuccessMessage("Data berhasil diambil")
             for (document in result){
-                //Log.d(TAG_GET_CATERING, "Datanya : "+document.data)
+                Log.d(TAG_GET_TENDA, "Datanya : "+document.data)
 
                 var tenda : Tenda = document.toObject(Tenda::class.java)
                 tenda.tendaId = document.id
                 if (tenda.idAdmin.equals(auth.currentUser?.uid)){
                     listTenda.add(tenda)
                 }
+            }
+            if (listTenda.size == 0){
+                animation_view.setAnimation(R.raw.empty_box)
+                animation_view.playAnimation()
+                animation_view.loop(false)
+            }else{
+                animation_view.visibility = View.INVISIBLE
             }
             adapter.notifyDataSetChanged()
 
