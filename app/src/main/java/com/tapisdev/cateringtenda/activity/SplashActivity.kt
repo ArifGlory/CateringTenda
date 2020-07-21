@@ -7,6 +7,7 @@ import android.util.Log
 import com.tapisdev.cateringtenda.MainActivity
 import com.tapisdev.cateringtenda.R
 import com.tapisdev.cateringtenda.activity.admin.DashboardAdminActivity
+import com.tapisdev.cateringtenda.activity.pengguna.HomeUserActivity
 import com.tapisdev.cateringtenda.base.BaseActivity
 import com.tapisdev.cateringtenda.model.UserPreference
 
@@ -24,8 +25,7 @@ class SplashActivity : BaseActivity() {
                 val i = Intent(applicationContext,DashboardAdminActivity::class.java)
                 startActivity(i)
                 }else if(mUserPref.getJenisUser().equals("pengguna")){
-                    showInfoMessage("login sebagai pengguna masih dibuat ya..")
-                    val i = Intent(applicationContext,MainActivity::class.java)
+                    val i = Intent(applicationContext,HomeUserActivity::class.java)
                     startActivity(i)
                 }else{
                     val i = Intent(applicationContext,MainActivity::class.java)

@@ -93,4 +93,9 @@ class AdminTendaFragment : BaseFragment() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        getDataMyTenda()
+    }
+
 }
