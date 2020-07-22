@@ -13,4 +13,4 @@ data class UserModel(
     var phone : String = "",
     var jenis : String = "",
     var uId : String = ""
-) : Parcelable
+) : Parcelable,java.io.Serializable

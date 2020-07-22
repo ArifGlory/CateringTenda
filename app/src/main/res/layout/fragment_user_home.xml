@@ -39,39 +39,29 @@
         android:layout_gravity="center"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="7dp"
-        android:text="Catering Terbaru"
+        android:text="Daftar Penyedia"
         android:textColor="@color/black"
         android:textSize="13dp"
         tools:ignore="MissingPrefix" />
 
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/animation_view"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_marginTop="40dp"
+        android:layout_margin="15dp"
+        android:layout_centerInParent="true"
+        android:layout_centerHorizontal="true"
+        app:lottie_rawRes="@raw/water_loading"
+        app:lottie_loop="true"
+        app:lottie_autoPlay="true" />
+
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvCatering"
+        android:id="@+id/rvPenyedia"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/tv_NevProfileName"
         android:layout_marginTop="5dp" />
 
-    <TextView
-        android:id="@+id/tvTenda"
-        android:fontFamily="@font/roboto_medium"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/rvCatering"
-        android:layout_gravity="center"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="12dp"
-        android:text="Tenda Terbaru"
-        android:textColor="@color/black"
-        android:textSize="13dp"
-        tools:ignore="MissingPrefix" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvTenda"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/tvTenda"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        />
     
 </RelativeLayout>

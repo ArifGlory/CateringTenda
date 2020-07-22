@@ -14,25 +14,23 @@ import com.tapisdev.cateringtenda.R
 import com.tapisdev.cateringtenda.activity.admin.AddCateringActivity
 import com.tapisdev.cateringtenda.adapter.AdapterCatering
 import com.tapisdev.cateringtenda.adapter.AdapterCateringUser
+import com.tapisdev.cateringtenda.adapter.AdapterPenyedia
 import com.tapisdev.cateringtenda.adapter.AdapterTendaUser
 import com.tapisdev.cateringtenda.base.BaseFragment
 import com.tapisdev.cateringtenda.model.Catering
 import com.tapisdev.cateringtenda.model.Tenda
+import com.tapisdev.cateringtenda.model.UserModel
 import kotlinx.android.synthetic.main.fragment_admin_tenda.*
 import java.util.*
 import kotlin.collections.ArrayList
 
 class UserHomeFragment : BaseFragment() {
 
-    lateinit var rvCatering: RecyclerView
-    lateinit var rvTenda : RecyclerView
-    var TAG_GET_CATERING = "getCatering"
-    var TAG_GET_TENDA = "getTenda"
-    lateinit var adapter:AdapterCateringUser
-    lateinit var adapterTenda:AdapterTendaUser
+    lateinit var rvPenyedia: RecyclerView
+    var TAG_GET_PENYEDIA = "getPenyedia"
+    lateinit var adapter:AdapterPenyedia
 
-    var listCatering = ArrayList<Catering>()
-    var listTenda = ArrayList<Tenda>()
+    var listPenyedia = ArrayList<UserModel>()
 
 
     override fun onCreateView(
@@ -42,24 +40,14 @@ class UserHomeFragment : BaseFragment() {
     ): View? {
 
         val root = inflater.inflate(R.layout.fragment_user_home, container, false)
-        rvCatering = root.findViewById(R.id.rvCatering)
-        rvTenda = root.findViewById(R.id.rvTenda)
+        rvPenyedia = root.findViewById(R.id.rvPenyedia)
 
-        adapter = AdapterCateringUser(listCatering)
-        adapterTenda = AdapterTendaUser(listTenda)
+        adapter = AdapterPenyedia(listPenyedia)
+        rvPenyedia.setHasFixedSize(true)
+        rvPenyedia.layoutManager = GridLayoutManager(requireContext(), 2)
+        rvPenyedia.adapter = adapter
 
-        rvCatering.setHasFixedSize(true)
-        rvTenda.setHasFixedSize(true)
-        //rvCatering.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL ,false)
-        rvCatering.layoutManager = GridLayoutManager(requireContext(), 2)
-        rvCatering.adapter = adapter
-
-        rvTenda.layoutManager = GridLayoutManager(requireContext(), 2)
-        rvTenda.adapter = adapterTenda
-
-
-        getDataCatering()
-        getDataTenda()
+        getDataPenyedia()
         return root
     }
 
@@ -72,62 +60,38 @@ class UserHomeFragment : BaseFragment() {
         }
     }
 
-    fun getDataCatering(){
-        cateringRef.get().addOnSuccessListener { result ->
-            listCatering.clear()
+    fun getDataPenyedia(){
+        userRef.get().addOnSuccessListener { result ->
+            listPenyedia.clear()
             //Log.d(TAG_GET_CATERING," datanya "+result.documents)
             for (document in result){
                 //Log.d(TAG_GET_CATERING, "Datanya : "+document.data)
-                var catering : Catering = document.toObject(Catering::class.java)
-                catering.cateringId = document.id
-                listCatering.add(catering)
+                var userModel : UserModel = document.toObject(UserModel::class.java)
+                userModel.uId = document.id
+                if(userModel.jenis.equals("admin")){
+                    listPenyedia.add(userModel)
+                }
             }
-           /* if (listCatering.size == 0){
+            if (listPenyedia.size == 0){
                 animation_view.setAnimation(R.raw.empty_box)
                 animation_view.playAnimation()
                 animation_view.loop(false)
             }else{
                 animation_view.visibility = View.INVISIBLE
-            }*/
-            Collections.reverse(listCatering)
+            }
+            Collections.reverse(listPenyedia)
             adapter.notifyDataSetChanged()
 
         }.addOnFailureListener { exception ->
             showErrorMessage("terjadi kesalahan : "+exception.message)
-            Log.d(TAG_GET_CATERING,"err : "+exception.message)
+            Log.d(TAG_GET_PENYEDIA,"err : "+exception.message)
         }
     }
 
-    fun getDataTenda(){
-        tendaRef.get().addOnSuccessListener { result ->
-            listTenda.clear()
-            //Log.d(TAG_GET_CATERING," datanya "+result.documents)
-            for (document in result){
-                //Log.d(TAG_GET_CATERING, "Datanya : "+document.data)
-                var tenda : Tenda = document.toObject(Tenda::class.java)
-                tenda.tendaId = document.id
-                listTenda.add(tenda)
-            }
-            /* if (listCatering.size == 0){
-                 animation_view.setAnimation(R.raw.empty_box)
-                 animation_view.playAnimation()
-                 animation_view.loop(false)
-             }else{
-                 animation_view.visibility = View.INVISIBLE
-             }*/
-            Collections.reverse(listTenda)
-            adapterTenda.notifyDataSetChanged()
-
-        }.addOnFailureListener { exception ->
-            showErrorMessage("terjadi kesalahan : "+exception.message)
-            Log.d(TAG_GET_TENDA,"err : "+exception.message)
-        }
-    }
 
     override fun onResume() {
         super.onResume()
-        getDataCatering()
-        getDataTenda()
+        getDataPenyedia()
     }
 
 }
