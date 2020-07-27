@@ -1,17 +1,21 @@
 package com.tapisdev.cateringtenda.fragment
 
 import android.content.Intent
+import android.media.Image
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.airbnb.lottie.LottieAnimationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.tapisdev.cateringtenda.R
 import com.tapisdev.cateringtenda.activity.admin.AddCateringActivity
+import com.tapisdev.cateringtenda.activity.pengguna.KeranjangActivity
 import com.tapisdev.cateringtenda.adapter.AdapterCatering
 import com.tapisdev.cateringtenda.adapter.AdapterCateringUser
 import com.tapisdev.cateringtenda.adapter.AdapterPenyedia
@@ -27,8 +31,10 @@ import kotlin.collections.ArrayList
 class UserHomeFragment : BaseFragment() {
 
     lateinit var rvPenyedia: RecyclerView
+    lateinit var animation_view : LottieAnimationView
     var TAG_GET_PENYEDIA = "getPenyedia"
     lateinit var adapter:AdapterPenyedia
+    lateinit var ivCart : ImageView
 
     var listPenyedia = ArrayList<UserModel>()
 
@@ -41,11 +47,18 @@ class UserHomeFragment : BaseFragment() {
 
         val root = inflater.inflate(R.layout.fragment_user_home, container, false)
         rvPenyedia = root.findViewById(R.id.rvPenyedia)
+        ivCart = root.findViewById(R.id.ivCart)
+        animation_view = root.findViewById(R.id.animation_view)
 
         adapter = AdapterPenyedia(listPenyedia)
         rvPenyedia.setHasFixedSize(true)
         rvPenyedia.layoutManager = GridLayoutManager(requireContext(), 2)
         rvPenyedia.adapter = adapter
+
+        ivCart.setOnClickListener {
+            val i = Intent(activity,KeranjangActivity::class.java)
+            startActivity(i)
+        }
 
         getDataPenyedia()
         return root

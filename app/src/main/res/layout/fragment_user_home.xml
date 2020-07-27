@@ -17,7 +17,7 @@
             android:layout_alignParentRight="true"
             android:layout_marginRight="5dp"
             android:tint="@color/light_orange"
-            android:id="@+id/ivBack"
+            android:id="@+id/ivCart"
             android:src="@drawable/ic_cart"/>
         <TextView
             android:layout_width="wrap_content"

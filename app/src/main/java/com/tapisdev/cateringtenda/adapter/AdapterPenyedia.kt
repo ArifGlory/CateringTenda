@@ -11,6 +11,7 @@ import com.tapisdev.cateringtenda.R
 import com.tapisdev.cateringtenda.activity.admin.DetailCateringActivity
 import com.tapisdev.cateringtenda.activity.pengguna.DetailPenyediaActivity
 import com.tapisdev.cateringtenda.model.Catering
+import com.tapisdev.cateringtenda.model.SharedVariable
 import com.tapisdev.cateringtenda.model.UserModel
 import kotlinx.android.synthetic.main.row_catering.view.*
 import kotlinx.android.synthetic.main.row_catering.view.tvDeskripsi
@@ -35,6 +36,8 @@ class AdapterPenyedia(private val list:ArrayList<UserModel>) : RecyclerView.Adap
 
         holder.view.rlPenyedia.setOnClickListener {
             Log.d("adapterIsi",""+list.get(position).toString())
+            SharedVariable.selectedIdPenyedia = list.get(position).uId
+
             val i = Intent(holder.view.rlPenyedia.context,DetailPenyediaActivity::class.java)
             i.putExtra("penyedia",list.get(position) as Serializable)
             holder.view.rlPenyedia.context.startActivity(i)
