@@ -2,6 +2,7 @@ package com.tapisdev.cateringtenda.activity.pengguna
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.tapisdev.cateringtenda.R
@@ -40,5 +41,30 @@ class KeranjangActivity : BaseActivity() {
         ivBack.setOnClickListener {
             onBackPressed()
         }
+        countTotal()
+    }
+
+    fun countTotal(){
+        if(SharedVariable.listCart.size == 0){
+            tvPriceTotal.setText("Total : Rp. 0")
+            tvPriceTotal.visibility = View.INVISIBLE
+            tvGoToMakeOrder.visibility = View.INVISIBLE
+        }else{
+            var total = 0;
+            for (i in 0 until SharedVariable.listCart.size){
+                Log.d("isiCart",""+SharedVariable.listCart.get(i).toString())
+                var subtotal = SharedVariable.listCart.get(i).harga?.times(SharedVariable.listCart.get(i).jumlah!!)
+                if (subtotal != null) {
+                    total += subtotal
+                }
+            }
+            tvPriceTotal.setText("Total : Rp. "+total)
+            tvGoToMakeOrder.visibility = View.VISIBLE
+        }
+    }
+
+    fun refreshList(){
+        adapter.notifyDataSetChanged()
+        countTotal()
     }
 }
