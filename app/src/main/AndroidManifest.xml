@@ -17,8 +17,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:icon">
-        <activity android:name=".activity.pengguna.KeranjangActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".activity.pengguna.KonfirmasiPesanActivity"></activity>
+        <activity
+            android:name=".activity.pengguna.KeranjangActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.pengguna.DetailPenyediaActivity"
             android:theme="@style/AppTheme.NoActionBar" />
