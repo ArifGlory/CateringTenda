@@ -1,11 +1,13 @@
 package com.tapisdev.cateringtenda.activity.pengguna
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.tapisdev.cateringtenda.R
+import com.tapisdev.cateringtenda.activity.SplashActivity
 import com.tapisdev.cateringtenda.adapter.AdapterCatering
 import com.tapisdev.cateringtenda.adapter.AdapterKeranjang
 import com.tapisdev.cateringtenda.base.BaseActivity
@@ -41,6 +43,10 @@ class KeranjangActivity : BaseActivity() {
         ivBack.setOnClickListener {
             onBackPressed()
         }
+        tvGoToMakeOrder.setOnClickListener {
+            val i = Intent(applicationContext, KonfirmasiPesanActivity::class.java)
+            startActivity(i)
+        }
         countTotal()
     }
 
@@ -58,6 +64,7 @@ class KeranjangActivity : BaseActivity() {
                     total += subtotal
                 }
             }
+            SharedVariable.totalKeranjang = total
             tvPriceTotal.setText("Total : Rp. "+total)
             tvGoToMakeOrder.visibility = View.VISIBLE
         }
