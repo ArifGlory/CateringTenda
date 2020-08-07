@@ -19,6 +19,22 @@ class SplashActivity : BaseActivity() {
         mUserPref = UserPreference(this)
 
         if (auth.currentUser != null){
+
+            settingsRef.document("maintenance").get().addOnCompleteListener {
+                task ->
+                if(task.isSuccessful){
+                    var mode = task.result?.get("mode")
+                    if (mode != null) {
+                        if (mode.equals("1")){
+                            auth.signOut()
+                            val i = Intent(applicationContext,MaintenanceActivity::class.java)
+                            startActivity(i)
+                            finish()
+                        }
+                    }
+                }
+            }
+
             Log.d("userpref"," jenis user : "+mUserPref.getJenisUser())
             if (mUserPref.getJenisUser() != null){
                 if (mUserPref.getJenisUser().equals("admin")){

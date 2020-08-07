@@ -15,5 +15,6 @@ data class Cart(
     var idAdmin: String? = "",
     var idUser: String? = "",
     var jenis: String? = "",
-    var jumlah: Int? = 0
+    var jumlah: Int? = 0,
+    var idPesanan: String? = ""
 ) : Parcelable, java.io.Serializable
