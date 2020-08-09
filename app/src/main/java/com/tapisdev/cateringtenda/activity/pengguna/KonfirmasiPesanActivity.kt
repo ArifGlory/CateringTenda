@@ -82,6 +82,7 @@ class KonfirmasiPesanActivity : BaseActivity() {
                         }
                     }else{
                         var cart = SharedVariable.listCart.get(i)
+                        cart.idPesanan = idPesanan
                         detailpesananRef.document(cart.cartId.toString()).set(cart)
                     }
                 }
