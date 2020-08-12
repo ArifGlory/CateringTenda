@@ -13,6 +13,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreSettings
 import com.tapisdev.cateringtenda.model.UserPreference
 import es.dmoral.toasty.Toasty
+import java.text.SimpleDateFormat
 
 open class BaseFragment : Fragment() {
 
@@ -26,6 +27,7 @@ open class BaseFragment : Fragment() {
     val userRef = myDB.collection("users")
     val cateringRef = myDB.collection("catering")
     val tendaRef = myDB.collection("tenda")
+    val pesananRef = myDB.collection("pesanan")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -75,6 +77,15 @@ open class BaseFragment : Fragment() {
 
     fun showWarningMessage(message : String){
         activity?.let { Toasty.warning(it, message, Toast.LENGTH_SHORT, true).show() }
+    }
+
+    fun convertDate(tanggal : String): String {
+        val parser = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+        //val formatter = SimpleDateFormat("dd.MM.yyyy HH:mm")
+        val formatter = SimpleDateFormat("dd.MM.yyyy")
+        val output = formatter.format(parser.parse(tanggal))
+
+        return output
     }
 
     override fun onStart() {

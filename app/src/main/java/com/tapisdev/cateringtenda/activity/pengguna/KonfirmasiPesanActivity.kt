@@ -56,7 +56,8 @@ class KonfirmasiPesanActivity : BaseActivity() {
             auth.currentUser?.uid,
             alamat,
             dateInString,
-            ""
+            "",
+            "menunggu konfirmasi"
             )
         pesanananRef.document(idPesanan).set(pesanan).addOnCompleteListener { task ->
             if (task.isSuccessful){

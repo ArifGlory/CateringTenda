@@ -118,8 +118,11 @@ class UserProfilFragment : BaseFragment(),PermissionHelper.PermissionListener {
                     edMobileNumber.setText(getMobileNumber)
                     edUserName.setText(getName)
                     state = "view"
-                    updateUI()
 
+                    mUserPref.saveName(getName)
+                    mUserPref.savePhone(getMobileNumber)
+
+                    updateUI()
                     showSuccessMessage("Data berhasil diubah")
                 }else{
                     dismissLoading()
@@ -182,6 +185,7 @@ class UserProfilFragment : BaseFragment(),PermissionHelper.PermissionListener {
                     .load(mUserPref.getFoto())
                     .into(ivProfile)
             }
+            tvEnableUpdate.visibility = View.VISIBLE
 
             edUserName.isEnabled = false
             edMobileNumber.isEnabled = false

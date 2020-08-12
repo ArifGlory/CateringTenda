@@ -12,6 +12,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreSettings
 import com.tapisdev.cateringtenda.model.UserPreference
 import es.dmoral.toasty.Toasty
+import java.text.SimpleDateFormat
 
 open class BaseActivity : AppCompatActivity() {
 
@@ -76,6 +77,15 @@ open class BaseActivity : AppCompatActivity() {
 
     fun showWarningMessage(message : String){
         applicationContext?.let { Toasty.warning(it, message, Toast.LENGTH_SHORT, true).show() }
+    }
+
+    fun convertDate(tanggal : String): String {
+        val parser = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+        //val formatter = SimpleDateFormat("dd.MM.yyyy HH:mm")
+        val formatter = SimpleDateFormat("dd.MM.yyyy")
+        val output = formatter.format(parser.parse(tanggal))
+
+        return output
     }
 
     override fun onStart() {

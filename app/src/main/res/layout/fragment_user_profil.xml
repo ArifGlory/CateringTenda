@@ -72,6 +72,7 @@
             android:textColor="@color/black"
             android:paddingLeft="10dp"
             android:hint="Nama lengkap"
+            android:inputType="text"
             android:textSize="12sp"
             android:layout_marginLeft="12dp"
             android:layout_marginRight="12dp"

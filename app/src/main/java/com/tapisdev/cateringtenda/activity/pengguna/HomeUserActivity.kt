@@ -12,6 +12,7 @@ import com.tapisdev.cateringtenda.R
 import com.tapisdev.cateringtenda.base.BaseActivity
 import com.tapisdev.cateringtenda.fragment.UserHomeFragment
 import com.tapisdev.cateringtenda.fragment.UserProfilFragment
+import com.tapisdev.cateringtenda.fragment.UserRiwayatFragment
 import kotlinx.android.synthetic.main.activity_home_user.*
 
 class HomeUserActivity : BaseActivity() {
@@ -34,7 +35,9 @@ class HomeUserActivity : BaseActivity() {
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_history -> {
-
+                val fragment = UserRiwayatFragment.newInstance()
+                addFragment(fragment)
+                return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_profil -> {
                 val fragment = UserProfilFragment.newInstance()
