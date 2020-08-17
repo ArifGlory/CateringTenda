@@ -8,7 +8,7 @@ import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.tapisdev.cateringPesanan.adapter.AdapterPesananUser
 import com.tapisdev.cateringtenda.R
-import com.tapisdev.cateringtenda.adapter.AdapterKeranjang
+import com.tapisdev.cateringtenda.adapter.AdapterDetailPesanan
 import com.tapisdev.cateringtenda.base.BaseActivity
 import com.tapisdev.cateringtenda.model.Cart
 import com.tapisdev.cateringtenda.model.Pesanan
@@ -21,7 +21,7 @@ class DetailPesananActivity : BaseActivity() {
     lateinit var i : Intent
     lateinit var pesanan : Pesanan
     var listCart = ArrayList<Cart>()
-    lateinit var adapter: AdapterKeranjang
+    lateinit var adapter: AdapterDetailPesanan
 
     var TAG_GET_DETAILPESANAN = "detailpesananGET"
 
@@ -32,7 +32,7 @@ class DetailPesananActivity : BaseActivity() {
         i = intent
         pesanan = i.getSerializableExtra("pesanan") as Pesanan
 
-        adapter = AdapterKeranjang(listCart)
+        adapter = AdapterDetailPesanan(listCart)
         rvPesanan.setHasFixedSize(true)
         rvPesanan.layoutManager = LinearLayoutManager(this)
         rvPesanan.adapter = adapter
