@@ -18,7 +18,7 @@ class AdapterDetailPesanan(private val list:ArrayList<Cart>) : RecyclerView.Adap
     var auth: FirebaseAuth = FirebaseAuth.getInstance()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
-        return Holder(LayoutInflater.from(parent.context).inflate(R.layout.row_keranjang,parent,false))
+        return Holder(LayoutInflater.from(parent.context).inflate(R.layout.row_detail_pesanan,parent,false))
     }
 
     override fun getItemCount(): Int = list?.size

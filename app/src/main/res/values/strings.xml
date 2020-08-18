@@ -40,6 +40,13 @@
         <item>Admin Catering/Tenda</item>
         <item>Pengguna</item>
     </string-array>
+    <string-array name="listStatusPesanan">
+        <item>Pilih Status Pesanan</item>
+        <item>menunggu konfirmasi</item>
+        <item>pesanan diproses</item>
+        <item>pesanan selesai</item>
+        <item>pesanan ditolak</item>
+    </string-array>
     <string name="title_activity_dashboard_admin">DashboardAdminActivity</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
