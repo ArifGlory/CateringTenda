@@ -40,7 +40,7 @@
         android:tint="@color/white" />
 
         <ImageView
-            android:id="@+id/ivBuktiBayar"
+            android:id="@+id/ivShowBuktiBayar"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:padding="5dp"

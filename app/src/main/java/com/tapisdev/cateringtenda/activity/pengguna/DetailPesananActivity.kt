@@ -74,8 +74,11 @@ class DetailPesananActivity : BaseActivity(),PermissionHelper.PermissionListener
         permissionHelper = PermissionHelper(this)
         permissionHelper.setPermissionListener(this)
 
-        ivBuktiBayar.setOnClickListener {
+        ivShowBuktiBayar.setOnClickListener {
             showDialogBuktiBayar()
+        }
+        ivBack.setOnClickListener {
+            onBackPressed()
         }
 
         getDataPesanan()
@@ -220,8 +223,9 @@ class DetailPesananActivity : BaseActivity(),PermissionHelper.PermissionListener
         pesanananRef.document(pesanan.pesananId.toString()).update("buktiBayar",url).addOnCompleteListener { task ->
             dismissLoading()
             if (task.isSuccessful){
+                pesanan.buktiBayar = url
                 showSuccessMessage("Data catering berhasil ditambahkan")
-                onBackPressed()
+                //onBackPressed()
             }else{
                 showLongErrorMessage("Penyimpanan data gagal")
                 Log.d(TAG_SIMPAN,"err : "+task.exception)
