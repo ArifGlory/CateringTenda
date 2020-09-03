@@ -27,7 +27,8 @@ class AdapterKeranjang(private val list:ArrayList<Cart>) : RecyclerView.Adapter<
 
         holder.view.tvName.text = list?.get(position)?.nama
         holder.view.tvJenis.text = list?.get(position)?.jenis
-        holder.view.tvPrice.text = "Rp. "+list?.get(position)?.harga+ " @"+list?.get(position).jumlah+" paket"
+        holder.view.tvJumlahDipesan.text = "Jumlah Dipesan : "+list?.get(position)?.jumlah
+        holder.view.tvPrice.text = "Rp. "+list?.get(position)?.harga
 
         Glide.with(holder.view.ivKeranjang.context)
             .load(list?.get(position)?.foto)

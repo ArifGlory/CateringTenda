@@ -11,7 +11,7 @@
         <item
             android:id="@+id/nav_tenda"
             android:icon="@drawable/ic_home_black_24dp"
-            android:title="Data Tenda" />
+            android:title="Data Paket Alat Pesta" />
         <item
             android:id="@+id/nav_pesanan"
             android:icon="@drawable/ic_add_shopping_cart_black_24dp"

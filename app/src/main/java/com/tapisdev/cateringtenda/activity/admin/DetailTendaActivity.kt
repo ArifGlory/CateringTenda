@@ -85,6 +85,19 @@ class DetailTendaActivity : BaseActivity(), PermissionHelper.PermissionListener 
         ivCatering.setOnClickListener {
             launchGallery()
         }
+        ivBack.setOnClickListener {
+            onBackPressed()
+        }
+        ivAddDetailTenda.setOnClickListener {
+           /* val i = Intent(this,AddDetailTendaActivity::class.java)
+            i.putExtra("tendaId",tenda.tendaId);
+            startActivity(i)*/
+        }
+        ivListDetailTenda.setOnClickListener {
+            /*val i = Intent(this,ListDetailTendaActivity::class.java)
+            i.putExtra("tendaId",tenda.tendaId);
+            startActivity(i)*/
+        }
 
 
         updateUI()
@@ -94,6 +107,7 @@ class DetailTendaActivity : BaseActivity(), PermissionHelper.PermissionListener 
         var getName = edFullName.text.toString()
         var getHarga = edHarga.text.toString()
         var getDeskripsi = edDeskripsi.text.toString()
+        var getSatuan = edSatuan.text.toString()
 
         if (getName.equals("") || getName.length == 0){
             showErrorMessage("Nama Belum diisi")
@@ -101,7 +115,10 @@ class DetailTendaActivity : BaseActivity(), PermissionHelper.PermissionListener 
             showErrorMessage("Harga Belum diisi")
         } else if (getDeskripsi.equals("") || getDeskripsi.length == 0){
             showErrorMessage("Deskripsi Belum diisi")
-        }else if (fileUri == null) {
+        }else if (getSatuan.equals("") || getSatuan.length == 0){
+            showErrorMessage("Satuan Belum diisi")
+        }
+        else if (fileUri == null) {
             val hrg = Integer.parseInt(getHarga)
             updateDataOnly(getName,hrg,getDeskripsi)
         }else{
@@ -186,6 +203,7 @@ class DetailTendaActivity : BaseActivity(), PermissionHelper.PermissionListener 
             edFullName.setText(tenda.nama)
             edHarga.setText(tenda.harga.toString())
             edDeskripsi.setText(tenda.deksripsi)
+            edSatuan.setText(tenda.satuan)
             tvHintFoto.visibility = View.INVISIBLE
             tvSaveEdit.visibility = View.INVISIBLE
 
@@ -196,6 +214,7 @@ class DetailTendaActivity : BaseActivity(), PermissionHelper.PermissionListener 
             edFullName.isEnabled = false
             edHarga.isEnabled = false
             edDeskripsi.isEnabled = false
+            edSatuan.isEnabled = false
             ivCatering.isEnabled = false
             tvSaveEdit.isEnabled = false
         }else if (state.equals("edit")){
@@ -205,6 +224,7 @@ class DetailTendaActivity : BaseActivity(), PermissionHelper.PermissionListener 
             edFullName.isEnabled = true
             edHarga.isEnabled = true
             edDeskripsi.isEnabled = true
+            edSatuan.isEnabled = true
             ivCatering.isEnabled = true
             tvSaveEdit.isEnabled= true
         }

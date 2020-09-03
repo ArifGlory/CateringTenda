@@ -17,8 +17,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:icon">
-        <activity android:name=".activity.admin.DetailPesananAdminActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".activity.admin.ListDetailTendaActivity"
+            android:label="List Detail Alat Pesta"></activity>
+        <activity android:name=".activity.admin.AddDetailTendaActivity" />
+        <activity
+            android:name=".activity.admin.DetailPesananAdminActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.pengguna.DetailPesananActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -40,7 +44,8 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.admin.DetailTendaActivity"
-            android:label="Detail Tenda" />
+            android:label="Detail Paket Alat Pesta"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.admin.AddTendaActivity"
             android:theme="@style/AppTheme.NoActionBar" />

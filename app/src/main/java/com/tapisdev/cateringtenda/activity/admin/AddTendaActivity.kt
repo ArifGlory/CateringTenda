@@ -17,6 +17,12 @@ import com.tapisdev.cateringtenda.model.Catering
 import com.tapisdev.cateringtenda.model.Tenda
 import com.tapisdev.cateringtenda.util.PermissionHelper
 import kotlinx.android.synthetic.main.activity_add_catering.*
+import kotlinx.android.synthetic.main.activity_add_catering.edDeskripsi
+import kotlinx.android.synthetic.main.activity_add_catering.edFullName
+import kotlinx.android.synthetic.main.activity_add_catering.edHarga
+import kotlinx.android.synthetic.main.activity_add_catering.ivCatering
+import kotlinx.android.synthetic.main.activity_add_catering.tvAdd
+import kotlinx.android.synthetic.main.activity_add_tenda.*
 import java.io.ByteArrayOutputStream
 import java.io.IOException
 import java.util.ArrayList
@@ -82,6 +88,7 @@ class AddTendaActivity : BaseActivity(),PermissionHelper.PermissionListener {
         var getName = edFullName.text.toString()
         var getHarga = edHarga.text.toString()
         var getDeskripsi = edDeskripsi.text.toString()
+        var getSatuan = edSatuan.text.toString()
 
         if (getName.equals("") || getName.length == 0){
             showErrorMessage("Nama Belum diisi")
@@ -89,14 +96,18 @@ class AddTendaActivity : BaseActivity(),PermissionHelper.PermissionListener {
             showErrorMessage("Harga Belum diisi")
         } else if (getDeskripsi.equals("") || getDeskripsi.length == 0){
             showErrorMessage("Deskripsi Belum diisi")
-        }else {
+        }else if (getSatuan.equals("") || getSatuan.length == 0){
+            showErrorMessage("Satuan Belum diisi")
+        }
+        else {
             var harga = Integer.parseInt(getHarga)
             tendaModel = Tenda("",
                 getName,
                 harga,
                 "",
                 getDeskripsi,
-                auth.currentUser?.uid
+                auth.currentUser?.uid,
+                getSatuan
             )
             uploadTenda()
         }

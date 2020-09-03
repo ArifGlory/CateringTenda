@@ -11,7 +11,11 @@ import com.tapisdev.cateringtenda.activity.pengguna.KeranjangActivity
 import com.tapisdev.cateringtenda.model.Cart
 import kotlinx.android.synthetic.main.row_catering_user.view.tvName
 import kotlinx.android.synthetic.main.row_catering_user.view.tvPrice
+import kotlinx.android.synthetic.main.row_detail_pesanan.view.*
 import kotlinx.android.synthetic.main.row_keranjang.view.*
+import kotlinx.android.synthetic.main.row_keranjang.view.ivKeranjang
+import kotlinx.android.synthetic.main.row_keranjang.view.tvJenis
+import kotlinx.android.synthetic.main.row_keranjang.view.tvJumlahDipesan
 
 
 class AdapterDetailPesanan(private val list:ArrayList<Cart>) : RecyclerView.Adapter<AdapterDetailPesanan.Holder>(){
@@ -27,7 +31,8 @@ class AdapterDetailPesanan(private val list:ArrayList<Cart>) : RecyclerView.Adap
 
         holder.view.tvName.text = list?.get(position)?.nama
         holder.view.tvJenis.text = list?.get(position)?.jenis
-        holder.view.tvPrice.text = "Rp. "+list?.get(position)?.harga+ " @"+list?.get(position).jumlah+" paket"
+        holder.view.tvJumlahDipesan.text = "Jumlah Dipesan : "+list?.get(position)?.jumlah
+        holder.view.tvPrice.text = "Rp. "+list?.get(position)?.harga
 
         Glide.with(holder.view.ivKeranjang.context)
             .load(list?.get(position)?.foto)

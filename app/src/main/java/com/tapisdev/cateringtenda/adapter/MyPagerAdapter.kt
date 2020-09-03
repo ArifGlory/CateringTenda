@@ -30,7 +30,7 @@ class MyPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
     override fun getPageTitle(position: Int): CharSequence? {
         return when(position){
             0 -> "Catering"
-            1 -> "Tenda"
+            1 -> "Paket Alat Pesta"
             else -> "-"
         }
     }

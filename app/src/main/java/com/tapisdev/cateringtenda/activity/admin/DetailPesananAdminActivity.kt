@@ -96,13 +96,16 @@ class DetailPesananAdminActivity : BaseActivity() {
         dialog.setContentView(R.layout.dlg_bukti_bayar)
         ivBuktiBayar = dialog.findViewById(R.id.ivBuktiBayar) as ImageView
         val tvClose = dialog.findViewById(R.id.tvClose) as TextView
+        val tvAdd = dialog.findViewById(R.id.tvAdd) as TextView
 
         if(pesanan.buktiBayar.equals("")){
             ivBuktiBayar.setImageResource(R.drawable.ic_placeholder)
+            tvAdd.setText("Belum mengirim bukti bayar")
         }else{
             Glide.with(this)
                 .load(pesanan.buktiBayar)
                 .into(ivBuktiBayar)
+            tvAdd.setText("")
         }
 
         tvClose.setOnClickListener {

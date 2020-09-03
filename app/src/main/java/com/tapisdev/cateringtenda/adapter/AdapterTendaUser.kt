@@ -47,7 +47,7 @@ class AdapterTendaUser(private val list:ArrayList<Tenda>) : RecyclerView.Adapter
     override fun onBindViewHolder(holder: Holder, position: Int) {
 
         holder.view.tvName.text = list?.get(position)?.nama
-        holder.view.tvPrice.text = "Rp. "+list?.get(position)?.harga
+        holder.view.tvPrice.text = "Rp. "+list?.get(position)?.harga + " / "+list?.get(position)?.satuan
 
         Glide.with(holder.view.ivCatering.context)
             .load(list?.get(position)?.foto)
@@ -85,7 +85,7 @@ class AdapterTendaUser(private val list:ArrayList<Tenda>) : RecyclerView.Adapter
                     list?.get(position)?.deksripsi,
                     list?.get(position)?.idAdmin,
                     auth.currentUser?.uid,
-                    "tenda",
+                    "alat pesta",
                     jml
                 )
                 SharedVariable.listCart.add(cart)

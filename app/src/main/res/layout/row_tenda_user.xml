@@ -82,7 +82,6 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:layout_gravity="center"
-                    android:layout_toLeftOf="@id/tvPrice"
                     android:text="tootl"
                     android:paddingLeft="5dp"
                     android:maxLines="1"
@@ -92,12 +91,12 @@
                     tools:ignore="MissingPrefix" />
                 <TextView
                     android:id="@+id/tvPrice"
+                    android:layout_below="@+id/tvName"
                     android:fontFamily="@font/roboto_bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:layout_centerHorizontal="true"
-                    android:layout_alignParentRight="true"
                     android:text="$80"
                     android:paddingLeft="5dp"
                     android:maxLines="1"
