@@ -47,6 +47,11 @@ class DetailPenyediaActivity : BaseActivity() {
             val i = Intent(this,KeranjangActivity::class.java)
             startActivity(i)
         }
+        tvAlamat.setOnClickListener {
+            val i = Intent(this,LokasiPenyediaActivity::class.java)
+            i.putExtra("latlon",penyedia.latlon)
+            startActivity(i)
+        }
 
         updateUI()
 
@@ -54,6 +59,12 @@ class DetailPenyediaActivity : BaseActivity() {
 
     fun updateUI(){
         tvName.setText(penyedia.name)
+
+        if (penyedia.alamat.equals("none") || penyedia.alamat.length == 0){
+            tvAlamat.setText("Data alamat belum diperbarui")
+        }else{
+            tvAlamat.setText(penyedia.alamat)
+        }
         if (!penyedia.foto.equals("")){
             Glide.with(this)
                 .load(penyedia.foto)

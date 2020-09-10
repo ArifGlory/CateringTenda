@@ -4,6 +4,8 @@ import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
+import android.location.Address
+import android.location.Geocoder
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -15,6 +17,7 @@ import com.google.firebase.storage.StorageReference
 import com.tapisdev.cateringtenda.R
 import com.tapisdev.cateringtenda.base.BaseActivity
 import com.tapisdev.cateringtenda.model.Catering
+import com.tapisdev.cateringtenda.model.SharedVariable
 import com.tapisdev.cateringtenda.model.UserPreference
 import com.tapisdev.cateringtenda.util.PermissionHelper
 import kotlinx.android.synthetic.main.activity_add_catering.*
@@ -23,11 +26,14 @@ import kotlinx.android.synthetic.main.activity_add_catering.ivCatering
 import kotlinx.android.synthetic.main.activity_edit_profil_admin.*
 import java.io.ByteArrayOutputStream
 import java.io.IOException
-import java.util.ArrayList
+import java.util.*
 
 class EditProfilAdminActivity : BaseActivity(),PermissionHelper.PermissionListener {
 
     var TAG_EDIT = "ubahProfil"
+    var alamat = "none"
+    var latlon = "none"
+
     private val PICK_IMAGE_REQUEST = 71
     private var filePath: Uri? = null
     private var firebaseStore: FirebaseStorage? = null
@@ -52,6 +58,10 @@ class EditProfilAdminActivity : BaseActivity(),PermissionHelper.PermissionListen
         tvUpdate.setOnClickListener {
             checkValidation()
         }
+        tvChooseLocation.setOnClickListener {
+            val i = Intent(this,MapsActivity::class.java)
+            startActivity(i)
+        }
 
         updateUI()
     }
@@ -59,6 +69,12 @@ class EditProfilAdminActivity : BaseActivity(),PermissionHelper.PermissionListen
     fun updateUI(){
         edFullName.setText(mUserPref.getName())
         edPhone.setText(mUserPref.getPhone())
+        if (mUserPref.getAlamat().equals("none") || mUserPref.getAlamat()?.length  == 0){
+            edAlamat.setText("Alamat belum dipilih")
+        }else{
+            edAlamat.setText(mUserPref.getAlamat())
+        }
+
         if (mUserPref.getFoto().equals("")){
             ivCatering.setImageResource(R.drawable.ic_placeholder)
         }else{
@@ -78,27 +94,35 @@ class EditProfilAdminActivity : BaseActivity(),PermissionHelper.PermissionListen
     fun checkValidation(){
         var getName = edFullName.text.toString()
         var getPhone = edPhone.text.toString()
+        var getAlamat = edAlamat.text.toString()
 
         if (getName.equals("") || getName.length == 0){
             showErrorMessage("Nama Belum diisi")
         } else if (getPhone.equals("") || getPhone.length == 0){
             showErrorMessage("Harga Belum diisi")
-        } else if (fileUri == null) {
-            updateDataOnly(getName,getPhone)
+        }else if (getAlamat.equals("") || getAlamat.length == 0){
+            showErrorMessage("Alamat Belum diisi")
+        }
+        else if (fileUri == null) {
+            updateDataOnly(getName,getPhone,getAlamat)
         }else {
-            uploadAndUpdate(getName,getPhone)
+            uploadAndUpdate(getName,getPhone,getAlamat)
         }
     }
 
-    fun updateDataOnly(name : String,phone : String){
+    fun updateDataOnly(name : String,phone : String,alamat : String){
         showLoading(this)
         userRef.document(auth.currentUser?.uid.toString()).update("name",name)
+        userRef.document(auth.currentUser?.uid.toString()).update("alamat",alamat)
+        userRef.document(auth.currentUser?.uid.toString()).update("latlon",latlon)
         userRef.document(auth.currentUser?.uid.toString()).update("phone",phone).addOnCompleteListener { task ->
             dismissLoading()
             if (task.isSuccessful){
                 showSuccessMessage("Ubah data berhasil")
                 mUserPref.saveName(name)
                 mUserPref.savePhone(phone)
+                mUserPref.saveAlamat(alamat)
+                mUserPref.saveLatlon(latlon)
                 onBackPressed()
             }else{
                 showErrorMessage("terjadi kesalahan : "+task.exception)
@@ -107,7 +131,7 @@ class EditProfilAdminActivity : BaseActivity(),PermissionHelper.PermissionListen
         }
     }
 
-    fun uploadAndUpdate(name : String,phone : String){
+    fun uploadAndUpdate(name : String,phone : String,alamat: String){
         showLoading(this)
         if (fileUri != null){
             val baos = ByteArrayOutputStream()
@@ -135,6 +159,8 @@ class EditProfilAdminActivity : BaseActivity(),PermissionHelper.PermissionListen
 
                         userRef.document(auth.currentUser?.uid.toString()).update("name",name)
                         userRef.document(auth.currentUser?.uid.toString()).update("phone",name)
+                        userRef.document(auth.currentUser?.uid.toString()).update("alamat",alamat)
+                        userRef.document(auth.currentUser?.uid.toString()).update("latlon",latlon)
                         userRef.document(auth.currentUser?.uid.toString()).update("foto",url).addOnCompleteListener { task ->
                             dismissLoading()
                             if (task.isSuccessful){
@@ -142,6 +168,8 @@ class EditProfilAdminActivity : BaseActivity(),PermissionHelper.PermissionListen
                                 mUserPref.saveName(name)
                                 mUserPref.savePhone(phone)
                                 mUserPref.saveFoto(url)
+                                mUserPref.saveAlamat(alamat)
+                                mUserPref.saveLatlon(latlon)
                                 onBackPressed()
                             }else{
                                 showErrorMessage("terjadi kesalahan : "+task.exception)
@@ -188,6 +216,42 @@ class EditProfilAdminActivity : BaseActivity(),PermissionHelper.PermissionListen
             } catch (e: IOException) {
                 e.printStackTrace()
             }
+        }
+    }
+
+    private fun getCompleteAddressString(
+        LATITUDE: Double,
+        LONGITUDE: Double
+    ): String? {
+        var strAdd = ""
+        val geocoder = Geocoder(this, Locale.getDefault())
+        try {
+            val addresses: List<Address>? =
+                geocoder.getFromLocation(LATITUDE, LONGITUDE, 1)
+            if (addresses != null) {
+                val returnedAddress: Address = addresses[0]
+                val strReturnedAddress = StringBuilder("")
+                for (i in 0..returnedAddress.getMaxAddressLineIndex()) {
+                    strReturnedAddress.append(returnedAddress.getAddressLine(i)).append("\n")
+                }
+                strAdd = strReturnedAddress.toString()
+                Log.d("address", strReturnedAddress.toString())
+            } else {
+                Log.d("address", "No Address returned!")
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            Log.d("address", "Canont get Address!")
+        }
+        return strAdd
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (SharedVariable.lokasiPenyedia.latitude != 0.0){
+            latlon = ""+SharedVariable.lokasiPenyedia.latitude+","+SharedVariable.lokasiPenyedia.longitude
+            alamat = getCompleteAddressString(SharedVariable.lokasiPenyedia.latitude,SharedVariable.lokasiPenyedia.longitude).toString()
+            edAlamat.setText(alamat)
         }
     }
 }

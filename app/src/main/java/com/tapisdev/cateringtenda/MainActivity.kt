@@ -88,5 +88,7 @@ class MainActivity : BaseActivity() {
         mUserPref.saveFoto(userModel.foto)
         mUserPref.saveJenisUser(userModel.jenis)
         mUserPref.savePhone(userModel.phone)
+        mUserPref.saveAlamat(userModel.alamat)
+        mUserPref.saveLatlon(userModel.latlon)
     }
 }

@@ -210,6 +210,8 @@ class UserProfilFragment : BaseFragment(),PermissionHelper.PermissionListener {
         mUserPref.saveFoto("")
         mUserPref.saveJenisUser("none")
         mUserPref.savePhone("")
+        mUserPref.saveAlamat("none")
+        mUserPref.saveLatlon("")
     }
 
     override fun onPermissionCheckDone() {
