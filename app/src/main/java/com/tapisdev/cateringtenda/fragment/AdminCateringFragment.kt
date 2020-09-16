@@ -6,6 +6,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import androidx.core.widget.doOnTextChanged
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -20,6 +22,7 @@ class AdminCateringFragment : BaseFragment() {
 
     lateinit var rvCatering: RecyclerView
     lateinit var fab : FloatingActionButton
+    lateinit var edSearchCatering : EditText
     var TAG_GET_CATERING = "getCatering"
     lateinit var adapter:AdapterCatering
 
@@ -34,6 +37,7 @@ class AdminCateringFragment : BaseFragment() {
         val root = inflater.inflate(R.layout.fragment_admin_catering, container, false)
         rvCatering = root.findViewById(R.id.rvCatering)
         fab = root.findViewById(R.id.fab)
+        edSearchCatering = root.findViewById(R.id.edSearchCatering)
 
         adapter = AdapterCatering(listCatering)
 
@@ -44,6 +48,22 @@ class AdminCateringFragment : BaseFragment() {
         fab.setOnClickListener {
             val i = Intent(activity,AddCateringActivity::class.java)
             startActivity(i)
+        }
+        edSearchCatering.doOnTextChanged { text, start, before, count ->
+            var query = text.toString().toLowerCase().trim()
+            var listSearchCatering = ArrayList<Catering>()
+
+            for (c in 0 until listCatering.size){
+                var namaCatering = listCatering.get(c).nama.toString().toLowerCase().trim()
+                if (namaCatering.contains(query)){
+                    listSearchCatering.add(listCatering.get(c))
+                }
+            }
+
+            adapter = AdapterCatering(listSearchCatering)
+            rvCatering.layoutManager = LinearLayoutManager(activity)
+            rvCatering.adapter = adapter
+            adapter.notifyDataSetChanged()
         }
 
 

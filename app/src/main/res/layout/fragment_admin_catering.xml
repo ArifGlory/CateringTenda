@@ -18,9 +18,25 @@
         android:textSize="20sp"
         tools:ignore="MissingPrefix" />
 
+    <EditText
+        android:id="@+id/edSearchCatering"
+        android:layout_below="@+id/tvTitle"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_marginLeft="10sp"
+        android:layout_marginRight="10sp"
+        android:background="@drawable/bg_corner_white_10"
+        android:hint="Cari Catering"
+        android:inputType="text"
+        android:imeOptions="actionGo"
+        android:paddingLeft="10sp"
+        android:maxLines="1"
+        android:paddingRight="10sp"
+        android:textSize="14sp" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvCatering"
-        android:layout_below="@+id/tvTitle"
+        android:layout_below="@+id/edSearchCatering"
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

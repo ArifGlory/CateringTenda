@@ -6,7 +6,9 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.TextView
+import androidx.core.widget.doOnTextChanged
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.airbnb.lottie.LottieAnimationView
@@ -26,6 +28,7 @@ class AdminPesananFragment : BaseFragment() {
     lateinit var rvPesanan: RecyclerView
     var TAG_GET_PESANAN = "getPesanan"
     lateinit var adapter: AdapterPesananUser
+    lateinit var edSearchPesanan : EditText
     lateinit var animation_view : LottieAnimationView
 
     var listPesanan = ArrayList<Pesanan>()
@@ -39,12 +42,33 @@ class AdminPesananFragment : BaseFragment() {
         val root = inflater.inflate(R.layout.fragment_admin_pesanan, container, false)
         rvPesanan = root.findViewById(R.id.rvPesanan)
         animation_view = root.findViewById(R.id.animation_view)
+        edSearchPesanan = root.findViewById(R.id.edSearchPesanan)
 
         adapter = AdapterPesananUser(listPesanan)
 
         rvPesanan.setHasFixedSize(true)
         rvPesanan.layoutManager = LinearLayoutManager(activity)
         rvPesanan.adapter = adapter
+
+        edSearchPesanan.doOnTextChanged { text, start, before, count ->
+            var query = text.toString().toLowerCase().trim()
+            var listSearchPesanan = ArrayList<Pesanan>()
+
+            for (c in 0 until listPesanan.size){
+                var tanggal = listPesanan.get(c).tanggalPesan.toString().toLowerCase().trim()
+                var alamat = listPesanan.get(c).alamat.toString().toLowerCase().trim()
+
+                if (tanggal.contains(query) || alamat.contains(query)){
+                    listSearchPesanan.add(listPesanan.get(c))
+                }
+            }
+
+            adapter = AdapterPesananUser(listSearchPesanan)
+            rvPesanan.layoutManager = LinearLayoutManager(activity)
+            rvPesanan.adapter = adapter
+            adapter.notifyDataSetChanged()
+
+        }
 
 
         getDataMyPesanan()

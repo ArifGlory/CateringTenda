@@ -59,6 +59,7 @@ class DetailPenyediaActivity : BaseActivity() {
 
     fun updateUI(){
         tvName.setText(penyedia.name)
+        tvKontak.setText("Kontak : "+penyedia.phone)
 
         if (penyedia.alamat.equals("none") || penyedia.alamat.length == 0){
             tvAlamat.setText("Data alamat belum diperbarui")

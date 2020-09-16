@@ -6,7 +6,9 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.TextView
+import androidx.core.widget.doOnTextChanged
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -26,6 +28,7 @@ class AdminTendaFragment : BaseFragment() {
     lateinit var fab : FloatingActionButton
     var TAG_GET_TENDA = "getTenda"
     lateinit var adapter: AdapterTenda
+    lateinit var edSearchTenda : EditText
 
     var listTenda = ArrayList<Tenda>()
 
@@ -39,6 +42,7 @@ class AdminTendaFragment : BaseFragment() {
         val root = inflater.inflate(R.layout.fragment_admin_tenda, container, false)
         rvTenda = root.findViewById(R.id.rvTenda)
         fab = root.findViewById(R.id.fab)
+        edSearchTenda = root.findViewById(R.id.edSearchTenda)
 
         adapter = AdapterTenda(listTenda)
 
@@ -49,6 +53,22 @@ class AdminTendaFragment : BaseFragment() {
         fab.setOnClickListener {
             val i = Intent(activity, AddTendaActivity::class.java)
             startActivity(i)
+        }
+        edSearchTenda.doOnTextChanged { text, start, before, count ->
+            var query = text.toString().toLowerCase().trim()
+            var listSearchTenda = ArrayList<Tenda>()
+
+            for (c in 0 until listTenda.size){
+                var namaTenda = listTenda.get(c).nama.toString().toLowerCase().trim()
+                if (namaTenda.contains(query)){
+                    listSearchTenda.add(listTenda.get(c))
+                }
+            }
+
+            adapter = AdapterTenda(listSearchTenda)
+            rvTenda.layoutManager = LinearLayoutManager(activity)
+            rvTenda.adapter = adapter
+            adapter.notifyDataSetChanged()
         }
 
 
