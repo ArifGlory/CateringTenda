@@ -5,6 +5,10 @@
 
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/nav_beranda"
+            android:icon="@drawable/ic_dashboard_blackaja"
+            android:title="Beranda" />
+        <item
             android:id="@+id/nav_catering"
             android:icon="@drawable/ic_cake_black_24dp"
             android:title="Data Catering" />

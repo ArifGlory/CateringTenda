@@ -17,6 +17,7 @@ import com.makeramen.roundedimageview.RoundedImageView
 import com.tapisdev.cateringtenda.MainActivity
 import com.tapisdev.cateringtenda.R
 import com.tapisdev.cateringtenda.base.BaseActivity
+import com.tapisdev.cateringtenda.fragment.AdminBerandaFragment
 import com.tapisdev.cateringtenda.fragment.AdminCateringFragment
 import com.tapisdev.cateringtenda.fragment.AdminPesananFragment
 import com.tapisdev.cateringtenda.fragment.AdminTendaFragment
@@ -59,7 +60,7 @@ class DashboardAdminActivity : BaseActivity(),
             startActivity(i)
         }
 
-        val fragment = AdminCateringFragment.newInstance()
+        val fragment = AdminBerandaFragment.newInstance()
         addFragment(fragment)
 
 
@@ -100,6 +101,10 @@ class DashboardAdminActivity : BaseActivity(),
                 clearSession()
                 val i = Intent(applicationContext,MainActivity::class.java)
                 startActivity(i)
+            }
+            R.id.nav_beranda -> {
+                val fragment = AdminBerandaFragment.newInstance()
+                addFragment(fragment)
             }
         }
         drawer_layout.closeDrawer(GravityCompat.START)

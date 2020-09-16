@@ -43,6 +43,7 @@ class AdapterCateringUser(private val list:ArrayList<Catering>) : RecyclerView.A
 
         holder.view.tvName.text = list?.get(position)?.nama
         holder.view.tvPrice.text = "Rp. "+list?.get(position)?.harga
+        holder.view.tvDeskripsiCatering.text = list?.get(position)?.deksripsi
 
         Glide.with(holder.view.ivCatering.context)
             .load(list?.get(position)?.foto)

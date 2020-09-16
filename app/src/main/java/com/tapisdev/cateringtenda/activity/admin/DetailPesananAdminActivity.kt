@@ -135,7 +135,11 @@ class DetailPesananAdminActivity : BaseActivity() {
                 var selected = parent?.getItemAtPosition(position).toString()
                 if (selected.equals("Pilih Status Pesanan")){
                     selectedStatus = "none"
-                }else if (selected.equals("menunggu konfirmasi")){
+                }else{
+                    selectedStatus = selected
+                }
+
+                /*else if (selected.equals("menunggu konfirmasi")){
                     selectedStatus = "menunggu konfirmasi"
                 }else if (selected.equals("pesanan diproses")){
                     selectedStatus = "pesanan diproses"
@@ -143,7 +147,9 @@ class DetailPesananAdminActivity : BaseActivity() {
                     selectedStatus = "pesanan selesai"
                 }else if (selected.equals("pesanan ditolak")){
                     selectedStatus = "pesanan ditolak"
-                }
+                }else if (selected.equals("sedang dikirim ke pemesan")){
+                    selectedStatus = "sedang dikirim ke pemesan"
+                }*/
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {}
