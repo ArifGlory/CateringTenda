@@ -7,7 +7,9 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.ImageView
+import androidx.core.widget.doOnTextChanged
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -33,6 +35,7 @@ class UserHomeFragment : BaseFragment() {
     lateinit var rvPenyedia: RecyclerView
     lateinit var animation_view : LottieAnimationView
     var TAG_GET_PENYEDIA = "getPenyedia"
+    lateinit var  edSearchPenyedia : EditText
     lateinit var adapter:AdapterPenyedia
     lateinit var ivCart : ImageView
 
@@ -49,6 +52,7 @@ class UserHomeFragment : BaseFragment() {
         rvPenyedia = root.findViewById(R.id.rvPenyedia)
         ivCart = root.findViewById(R.id.ivCart)
         animation_view = root.findViewById(R.id.animation_view)
+        edSearchPenyedia = root.findViewById(R.id.edSearchPenyedia)
 
         adapter = AdapterPenyedia(listPenyedia)
         rvPenyedia.setHasFixedSize(true)
@@ -58,6 +62,23 @@ class UserHomeFragment : BaseFragment() {
         ivCart.setOnClickListener {
             val i = Intent(activity,KeranjangActivity::class.java)
             startActivity(i)
+        }
+        edSearchPenyedia.doOnTextChanged { text, start, before, count ->
+            var query = text.toString().toLowerCase().trim()
+            var listSearchPenyedia = ArrayList<UserModel>()
+
+            for (c in 0 until listPenyedia.size){
+                var namaPenyedia = listPenyedia.get(c).name.toString().toLowerCase().trim()
+
+                if (namaPenyedia.contains(query)){
+                    listSearchPenyedia.add(listPenyedia.get(c))
+                }
+            }
+
+            adapter = AdapterPenyedia(listSearchPenyedia)
+            rvPenyedia.layoutManager = GridLayoutManager(requireContext(), 2)
+            rvPenyedia.adapter = adapter
+            adapter.notifyDataSetChanged()
         }
 
         getDataPenyedia()

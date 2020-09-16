@@ -44,6 +44,22 @@
         android:textSize="13dp"
         tools:ignore="MissingPrefix" />
 
+    <EditText
+        android:id="@+id/edSearchPenyedia"
+        android:layout_below="@+id/tv_NevProfileName"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_marginLeft="10sp"
+        android:layout_marginRight="10sp"
+        android:background="@drawable/bg_corner_white_10"
+        android:hint="Cari Penyedia"
+        android:inputType="text"
+        android:imeOptions="actionGo"
+        android:paddingLeft="10sp"
+        android:maxLines="1"
+        android:paddingRight="10sp"
+        android:textSize="14sp" />
+
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/animation_view"
         android:layout_width="match_parent"
@@ -60,7 +76,7 @@
         android:id="@+id/rvPenyedia"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tv_NevProfileName"
+        android:layout_below="@id/edSearchPenyedia"
         android:layout_marginTop="5dp" />
 
     

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.core.widget.doOnTextChanged
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager.widget.ViewPager
@@ -19,7 +20,9 @@ import com.tapisdev.cateringtenda.model.Catering
 import com.tapisdev.cateringtenda.model.SharedVariable
 import com.tapisdev.cateringtenda.model.UserModel
 import kotlinx.android.synthetic.main.activity_detail_catering_user.*
+import kotlinx.android.synthetic.main.activity_detail_catering_user.ivCart
 import kotlinx.android.synthetic.main.fragment_admin_tenda.*
+import kotlinx.android.synthetic.main.fragment_user_home.*
 
 class DetailPenyediaActivity : BaseActivity() {
 
