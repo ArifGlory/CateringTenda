@@ -53,10 +53,67 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="telepon"
-            android:layout_marginTop="5dp"
             android:textColor="@color/black"
             android:textSize="12sp"
             tools:ignore="MissingPrefix" />
     </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_below="@+id/lineInformasi"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:id="@+id/relaCatering">
+
+        <TextView
+            android:id="@+id/tvTitleCatering"
+            android:fontFamily="@font/roboto_medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Catering terbaru"
+            android:layout_gravity="center_horizontal"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            tools:ignore="MissingPrefix" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvCatering"
+            android:layout_below="@+id/tvTitleCatering"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:scrollbars="vertical" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_below="@+id/relaCatering"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:id="@+id/relaTenda">
+
+        <TextView
+            android:id="@+id/tvTitleTenda"
+            android:fontFamily="@font/roboto_medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Alat Pesta terbaru"
+            android:layout_gravity="center_horizontal"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            tools:ignore="MissingPrefix" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvTenda"
+            android:layout_below="@+id/tvTitleTenda"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:scrollbars="vertical" />
+
+    </RelativeLayout>
 
 </RelativeLayout>
