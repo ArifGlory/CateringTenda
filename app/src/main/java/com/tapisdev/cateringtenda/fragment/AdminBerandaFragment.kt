@@ -54,7 +54,7 @@ class AdminBerandaFragment : BaseFragment() {
         tvTitleCatering = root.findViewById(R.id.tvTitleCatering)
         tvTitleTenda = root.findViewById(R.id.tvTitleTenda)
         rvCatering = root.findViewById(R.id.rvCatering)
-        rvTenda = root.findViewById(R.id.rvCatering)
+        rvTenda = root.findViewById(R.id.rvTenda)
         mUserPref = UserPreference(requireContext())
 
         adapter = AdapterCatering(listCatering)

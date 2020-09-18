@@ -58,6 +58,8 @@ class AdminPesananFragment : BaseFragment() {
                 var tanggal = listPesanan.get(c).tanggalPesan.toString().toLowerCase().trim()
                 var alamat = listPesanan.get(c).alamat.toString().toLowerCase().trim()
 
+                tanggal = convertDate(tanggal)
+
                 if (tanggal.contains(query) || alamat.contains(query)){
                     listSearchPesanan.add(listPesanan.get(c))
                 }

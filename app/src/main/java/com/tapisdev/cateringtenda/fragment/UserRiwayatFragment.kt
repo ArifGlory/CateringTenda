@@ -7,7 +7,9 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.ImageView
+import androidx.core.widget.doOnTextChanged
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -26,6 +28,7 @@ import com.tapisdev.cateringtenda.model.Pesanan
 import com.tapisdev.cateringtenda.model.Tenda
 import com.tapisdev.cateringtenda.model.UserModel
 import kotlinx.android.synthetic.main.fragment_admin_tenda.*
+import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -36,6 +39,7 @@ class UserRiwayatFragment : BaseFragment() {
     var TAG_GET_PENYEDIA = "getPenyedia"
     lateinit var adapter: AdapterPesananUser
     lateinit var ivCart : ImageView
+    lateinit var edSearchPesanan: EditText
 
     var listPesanan = ArrayList<Pesanan>()
 
@@ -49,16 +53,40 @@ class UserRiwayatFragment : BaseFragment() {
         val root = inflater.inflate(R.layout.fragment_user_riwayat, container, false)
         rvPesanan = root.findViewById(R.id.rvPesanan)
         animation_view = root.findViewById(R.id.animation_view)
+        edSearchPesanan = root.findViewById(R.id.edSearchPesanan)
 
         adapter = AdapterPesananUser(listPesanan)
         rvPesanan.setHasFixedSize(true)
         rvPesanan.layoutManager = LinearLayoutManager(activity)
         rvPesanan.adapter = adapter
 
+        edSearchPesanan.doOnTextChanged { text, start, before, count ->
+            var query = text.toString().toLowerCase().trim()
+            var listSearchPesanan = ArrayList<Pesanan>()
+
+            for (c in 0 until listPesanan.size){
+                var tanggal = listPesanan.get(c).tanggalPesan.toString().toLowerCase().trim()
+                var alamat = listPesanan.get(c).alamat.toString().toLowerCase().trim()
+
+                tanggal = convertDate(tanggal)
+
+                if (tanggal.contains(query) || alamat.contains(query)){
+                    listSearchPesanan.add(listPesanan.get(c))
+                }
+            }
+
+            adapter = AdapterPesananUser(listSearchPesanan)
+            rvPesanan.layoutManager = LinearLayoutManager(activity)
+            rvPesanan.adapter = adapter
+            adapter.notifyDataSetChanged()
+        }
+
 
         getDataPesanan()
         return root
     }
+
+
 
     companion object {
         fun newInstance(): UserRiwayatFragment{

@@ -69,8 +69,17 @@ class DetailPesananAdminActivity : BaseActivity() {
             showDialogUbahStatus()
         }
 
+
+        updateUI()
         getDataPemesan()
         getDataPesanan()
+    }
+
+    fun updateUI(){
+        if (pesanan.status.equals("pesanan selesai")){
+            tvUbahStatus.visibility = View.INVISIBLE
+            tvUbahStatus.isEnabled = false
+        }
     }
 
     fun updateStatusPesanan(newStatus : String){
@@ -81,6 +90,7 @@ class DetailPesananAdminActivity : BaseActivity() {
                 pesanan.status = newStatus
                 tvStatus.setText(pesanan.status)
                 showSuccessMessage("Status berhasil diubah")
+                updateUI()
                 //onBackPressed()
             }else{
                 showLongErrorMessage("terjadi kesalahan, coba lagi nanti")
