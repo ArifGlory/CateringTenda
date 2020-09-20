@@ -209,7 +209,7 @@ class DetailPesananAdminActivity : BaseActivity() {
             for (document in result){
                 //Log.d(TAG_GET_CATERING, "Datanya : "+document.data)
                 var cart : Cart = document.toObject(Cart::class.java)
-                if (cart.idUser.equals(pesanan.idUser)){
+                if (cart.idUser.equals(pesanan.idUser) && cart.idAdmin.equals(pesanan.idAdmin)){
                     listCart.add(cart)
                 }
             }

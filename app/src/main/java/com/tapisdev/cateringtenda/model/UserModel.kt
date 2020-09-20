@@ -14,5 +14,6 @@ data class UserModel(
     var jenis : String = "",
     var uId : String = "",
     var alamat : String = "",
-    var latlon : String = ""
+    var latlon : String = "",
+    var deskripsi : String = ""
 ) : Parcelable,java.io.Serializable

@@ -99,7 +99,7 @@ class EditProfilAdminActivity : BaseActivity(),PermissionHelper.PermissionListen
         if (getName.equals("") || getName.length == 0){
             showErrorMessage("Nama Belum diisi")
         } else if (getPhone.equals("") || getPhone.length == 0){
-            showErrorMessage("Harga Belum diisi")
+            showErrorMessage("Telepon Belum diisi")
         }else if (getAlamat.equals("") || getAlamat.length == 0){
             showErrorMessage("Alamat Belum diisi")
         }

@@ -90,5 +90,6 @@ class MainActivity : BaseActivity() {
         mUserPref.savePhone(userModel.phone)
         mUserPref.saveAlamat(userModel.alamat)
         mUserPref.saveLatlon(userModel.latlon)
+        mUserPref.saveDeskripsi(userModel.deskripsi)
     }
 }

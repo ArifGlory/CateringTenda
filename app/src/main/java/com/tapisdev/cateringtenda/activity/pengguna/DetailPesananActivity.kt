@@ -17,6 +17,7 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
@@ -62,7 +63,7 @@ class DetailPesananActivity : BaseActivity(),PermissionHelper.PermissionListener
 
         adapter = AdapterDetailPesanan(listCart)
         rvPesanan.setHasFixedSize(true)
-        rvPesanan.layoutManager = LinearLayoutManager(this)
+        rvPesanan.layoutManager = LinearLayoutManager(this) as RecyclerView.LayoutManager?
         rvPesanan.adapter = adapter
 
         tvTanggal.setText("Tanggal pesan : "+pesanan.tanggalPesan?.let { convertDate(it) })
@@ -118,7 +119,7 @@ class DetailPesananActivity : BaseActivity(),PermissionHelper.PermissionListener
             for (document in result){
                 //Log.d(TAG_GET_CATERING, "Datanya : "+document.data)
                 var cart : Cart = document.toObject(Cart::class.java)
-                if (cart.idUser.equals(auth.currentUser?.uid)){
+                if (cart.idUser.equals(auth.currentUser?.uid) && cart.idAdmin.equals(pesanan.idAdmin)){
                     listCart.add(cart)
                 }
             }

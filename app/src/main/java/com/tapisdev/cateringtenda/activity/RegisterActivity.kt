@@ -84,7 +84,7 @@ class RegisterActivity : BaseActivity() {
             showErrorMessage("Password harus lebih dari 8 karakter")
         }
         else{
-            userModel = UserModel(getName,getEmail,"",getPhone,selectedJenisUser,"","none","none")
+            userModel = UserModel(getName,getEmail,"",getPhone,selectedJenisUser,"","none","none","")
             Log.d(TAG_SIMPAN," namanya : "+userModel.name)
 
             registerUser(userModel.email,getPassword)

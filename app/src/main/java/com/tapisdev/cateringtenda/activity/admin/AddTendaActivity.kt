@@ -170,7 +170,7 @@ class AddTendaActivity : BaseActivity(),PermissionHelper.PermissionListener {
                 task ->
             dismissLoading()
             if (task.isSuccessful){
-                showSuccessMessage("Data tenda berhasil ditambahkan")
+                showSuccessMessage("Data Alat Pesta berhasil ditambahkan")
                 onBackPressed()
             }else{
                 showLongErrorMessage("Penyimpanan data gagal")

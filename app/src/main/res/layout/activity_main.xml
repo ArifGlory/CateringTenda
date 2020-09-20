@@ -8,8 +8,22 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/rlLoginDetail">
+        <TextView
+            android:id="@+id/tvTitle2"
+            android:fontFamily="@font/roboto_bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/ivMain"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:text="@string/namaAplikasi"
+            android:textColor="@color/main_blue_color"
+            android:textSize="20sp"
+            tools:ignore="MissingPrefix" />
         <ImageView
             android:layout_width="120dp"
+            android:id="@+id/ivMain"
             android:layout_height="120dp"
             android:src="@drawable/ic_appicon"
             android:layout_centerInParent="true"/>

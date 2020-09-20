@@ -10,6 +10,7 @@ class UserPreference(context: Context) {
     private val KEY_PHONE = "phone"
     private val KEY_ALAMAT = "alamat"
     private val KEY_LATLON = "latlon"
+    private val KEY_DESKRIPSI = "deskripsi"
 
     var PREFS_NAME = "UserPref"
     private val preferences  = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
@@ -57,6 +58,12 @@ class UserPreference(context: Context) {
         editor.commit()
     }
 
+    fun saveDeskripsi(text : String){
+        val editor = preferences!!.edit()
+        editor.putString(KEY_DESKRIPSI,text)
+        editor.commit()
+    }
+
     fun getName() : String?{
         return preferences!!.getString(KEY_NAME,null)
     }
@@ -84,6 +91,10 @@ class UserPreference(context: Context) {
 
     fun getLatlon() : String?{
         return preferences!!.getString(KEY_LATLON,null)
+    }
+
+    fun getDeskripsi() : String?{
+        return preferences!!.getString(KEY_DESKRIPSI,null)
     }
 
 
