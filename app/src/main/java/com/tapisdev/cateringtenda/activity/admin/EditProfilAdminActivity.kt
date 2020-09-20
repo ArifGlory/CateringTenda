@@ -69,6 +69,7 @@ class EditProfilAdminActivity : BaseActivity(),PermissionHelper.PermissionListen
     fun updateUI(){
         edFullName.setText(mUserPref.getName())
         edPhone.setText(mUserPref.getPhone())
+        edDeskripsiAdmin.setText(mUserPref.getDeskripsi())
         if (mUserPref.getAlamat().equals("none") || mUserPref.getAlamat()?.length  == 0){
             edAlamat.setText("Alamat belum dipilih")
         }else{
@@ -95,6 +96,7 @@ class EditProfilAdminActivity : BaseActivity(),PermissionHelper.PermissionListen
         var getName = edFullName.text.toString()
         var getPhone = edPhone.text.toString()
         var getAlamat = edAlamat.text.toString()
+        var getDeskripsi = edDeskripsiAdmin.text.toString()
 
         if (getName.equals("") || getName.length == 0){
             showErrorMessage("Nama Belum diisi")
@@ -102,19 +104,22 @@ class EditProfilAdminActivity : BaseActivity(),PermissionHelper.PermissionListen
             showErrorMessage("Telepon Belum diisi")
         }else if (getAlamat.equals("") || getAlamat.length == 0){
             showErrorMessage("Alamat Belum diisi")
+        }else if (getDeskripsi.equals("") || getDeskripsi.length == 0){
+            showErrorMessage("Deskripsi Belum diisi")
         }
         else if (fileUri == null) {
-            updateDataOnly(getName,getPhone,getAlamat)
+            updateDataOnly(getName,getPhone,getAlamat,getDeskripsi)
         }else {
-            uploadAndUpdate(getName,getPhone,getAlamat)
+            uploadAndUpdate(getName,getPhone,getAlamat,getDeskripsi)
         }
     }
 
-    fun updateDataOnly(name : String,phone : String,alamat : String){
+    fun updateDataOnly(name : String,phone : String,alamat : String,deskripsi : String){
         showLoading(this)
         userRef.document(auth.currentUser?.uid.toString()).update("name",name)
         userRef.document(auth.currentUser?.uid.toString()).update("alamat",alamat)
         userRef.document(auth.currentUser?.uid.toString()).update("latlon",latlon)
+        userRef.document(auth.currentUser?.uid.toString()).update("deskripsi",deskripsi)
         userRef.document(auth.currentUser?.uid.toString()).update("phone",phone).addOnCompleteListener { task ->
             dismissLoading()
             if (task.isSuccessful){
@@ -123,6 +128,7 @@ class EditProfilAdminActivity : BaseActivity(),PermissionHelper.PermissionListen
                 mUserPref.savePhone(phone)
                 mUserPref.saveAlamat(alamat)
                 mUserPref.saveLatlon(latlon)
+                mUserPref.saveDeskripsi(deskripsi)
                 onBackPressed()
             }else{
                 showErrorMessage("terjadi kesalahan : "+task.exception)
@@ -131,7 +137,7 @@ class EditProfilAdminActivity : BaseActivity(),PermissionHelper.PermissionListen
         }
     }
 
-    fun uploadAndUpdate(name : String,phone : String,alamat: String){
+    fun uploadAndUpdate(name : String,phone : String,alamat: String,deskripsi : String){
         showLoading(this)
         if (fileUri != null){
             val baos = ByteArrayOutputStream()
@@ -161,6 +167,7 @@ class EditProfilAdminActivity : BaseActivity(),PermissionHelper.PermissionListen
                         userRef.document(auth.currentUser?.uid.toString()).update("phone",name)
                         userRef.document(auth.currentUser?.uid.toString()).update("alamat",alamat)
                         userRef.document(auth.currentUser?.uid.toString()).update("latlon",latlon)
+                        userRef.document(auth.currentUser?.uid.toString()).update("deskripsi",deskripsi)
                         userRef.document(auth.currentUser?.uid.toString()).update("foto",url).addOnCompleteListener { task ->
                             dismissLoading()
                             if (task.isSuccessful){
@@ -170,6 +177,7 @@ class EditProfilAdminActivity : BaseActivity(),PermissionHelper.PermissionListen
                                 mUserPref.saveFoto(url)
                                 mUserPref.saveAlamat(alamat)
                                 mUserPref.saveLatlon(latlon)
+                                mUserPref.saveDeskripsi(deskripsi)
                                 onBackPressed()
                             }else{
                                 showErrorMessage("terjadi kesalahan : "+task.exception)

@@ -62,7 +62,47 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
+            android:id="@+id/cvDeskripsi"
+            app:cardCornerRadius="5dp"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tvTentang"
+                        android:text="Tentang Penyedia"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="-"
+                        android:textSize="12sp"
+                        android:layout_margin="5dp"
+                        android:layout_below="@+id/tvTentang"
+                        android:textColor="@color/black"
+                        android:id="@+id/tvDeskripsiPenyedia"
+                        android:layout_marginRight="5dp"
+                        android:fontFamily="@font/roboto_bold"
+                        tools:ignore="MissingPrefix" />
+
+
+                </RelativeLayout>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
             android:id="@+id/cvFoodName"
+            android:layout_below="@+id/cvDeskripsi"
             app:cardCornerRadius="5dp"
             >
             <LinearLayout

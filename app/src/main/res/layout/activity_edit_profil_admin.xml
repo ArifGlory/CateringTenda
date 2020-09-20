@@ -125,13 +125,30 @@
 
         </RelativeLayout>
 
+        <EditText
+            android:id="@+id/edDeskripsiAdmin"
+            android:layout_below="@+id/lineAlamat"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:background="@drawable/bg_editfield"
+            android:hint="Deskripsi"
+            android:enabled="true"
+            android:layout_marginLeft="10sp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="10sp"
+            android:inputType="textMultiLine"
+            android:imeOptions="actionGo"
+            android:paddingLeft="10sp"
+            android:paddingRight="10sp"
+            android:textSize="14sp" />
+
 
         <TextView
             android:id="@+id/tvUpdate"
             android:fontFamily="@font/roboto_medium"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/lineAlamat"
+            android:layout_below="@id/edDeskripsiAdmin"
             android:layout_alignParentRight="true"
             android:layout_marginLeft="10sp"
             android:layout_marginTop="15dp"

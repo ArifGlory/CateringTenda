@@ -39,6 +39,7 @@ class AdminBerandaFragment : BaseFragment() {
     lateinit var tvTelepon : TextView
     lateinit var tvTitleCatering : TextView
     lateinit var tvTitleTenda : TextView
+    lateinit var tvDeskripsi : TextView
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -53,6 +54,7 @@ class AdminBerandaFragment : BaseFragment() {
         tvTelepon = root.findViewById(R.id.tvTelepon)
         tvTitleCatering = root.findViewById(R.id.tvTitleCatering)
         tvTitleTenda = root.findViewById(R.id.tvTitleTenda)
+        tvDeskripsi = root.findViewById(R.id.tvDeskripsi)
         rvCatering = root.findViewById(R.id.rvCatering)
         rvTenda = root.findViewById(R.id.rvTenda)
         mUserPref = UserPreference(requireContext())
@@ -78,6 +80,7 @@ class AdminBerandaFragment : BaseFragment() {
         tvNamaPenyedia.setText(mUserPref.getName())
         tvAlamat.setText("Alamat : "+mUserPref.getAlamat())
         tvTelepon.setText("Kontak : "+mUserPref.getPhone())
+        tvDeskripsi.setText("Deskripsi : "+mUserPref.getDeskripsi())
     }
 
     fun getDataMyCatering(){

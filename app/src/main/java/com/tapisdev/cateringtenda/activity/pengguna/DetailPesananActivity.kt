@@ -42,9 +42,11 @@ class DetailPesananActivity : BaseActivity(),PermissionHelper.PermissionListener
     var listCart = ArrayList<Cart>()
     lateinit var adapter: AdapterDetailPesanan
     lateinit var ivBuktiBayar : ImageView
+    lateinit var penyedia : UserModel
 
     var TAG_GET_DETAILPESANAN = "detailpesananGET"
     var TAG_SIMPAN = "saveBukti"
+    var TAG_GET_USER = "penyediaGET"
     private val PICK_IMAGE_REQUEST = 71
     private var filePath: Uri? = null
     private var firebaseStore: FirebaseStorage? = null
@@ -83,6 +85,7 @@ class DetailPesananActivity : BaseActivity(),PermissionHelper.PermissionListener
         }
 
         getDataPesanan()
+        getDataPenyedia()
     }
 
     private fun launchGallery() {
@@ -129,6 +132,28 @@ class DetailPesananActivity : BaseActivity(),PermissionHelper.PermissionListener
         }.addOnFailureListener { exception ->
             showErrorMessage("terjadi kesalahan : "+exception.message)
             Log.d(TAG_GET_DETAILPESANAN,"err : "+exception.message)
+        }
+    }
+
+    fun getDataPenyedia(){
+        userRef.document(pesanan.idAdmin.toString()).get().addOnCompleteListener { task ->
+            if (task.isSuccessful){
+                val document = task.result
+                if (document != null) {
+                    if (document.exists()) {
+                        Log.d(TAG_GET_USER, "DocumentSnapshot data: " + document.data)
+                        //convert doc to object
+                        penyedia = document.toObject(UserModel::class.java)!!
+                        tvDeskripsiPenyedia.setText(penyedia.name+ "\n "+penyedia.deskripsi)
+
+                    } else {
+                        Log.d(TAG_GET_USER, "No such document")
+                    }
+                }
+            }else{
+                showErrorMessage("Pengguna tidak ditemukan")
+                Log.d(TAG_GET_USER,"err : "+task.exception)
+            }
         }
     }
 
