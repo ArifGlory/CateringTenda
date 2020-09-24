@@ -1,17 +1,27 @@
 package com.tapisdev.cateringtenda.adapter
 
+import android.app.Dialog
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
+import android.widget.EditText
+import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.tapisdev.cateringtenda.R
 import com.tapisdev.cateringtenda.activity.pengguna.KeranjangActivity
 import com.tapisdev.cateringtenda.model.Cart
+import com.tapisdev.cateringtenda.model.SharedVariable
+import es.dmoral.toasty.Toasty
+import kotlinx.android.synthetic.main.row_catering_user.view.*
 import kotlinx.android.synthetic.main.row_catering_user.view.tvName
 import kotlinx.android.synthetic.main.row_catering_user.view.tvPrice
 import kotlinx.android.synthetic.main.row_keranjang.view.*
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class AdapterKeranjang(private val list:ArrayList<Cart>) : RecyclerView.Adapter<AdapterKeranjang.Holder>(){
@@ -45,6 +55,7 @@ class AdapterKeranjang(private val list:ArrayList<Cart>) : RecyclerView.Adapter<
     }
 
     class Holder(val view: View) : RecyclerView.ViewHolder(view)
+
 
 
 }

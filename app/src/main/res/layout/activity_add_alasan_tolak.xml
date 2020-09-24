@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray_orange">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:id="@+id/rlRegistration"
+        android:orientation="vertical"
+        android:background="@drawable/bg_top_shap_10">
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:fontFamily="@font/roboto_medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10sp"
+            android:layout_marginBottom="10sp"
+            android:text="Detail Penolakan"
+            android:textColor="@color/light_orange"
+            android:textSize="15sp"
+            tools:ignore="MissingPrefix" />
+
+
+        <EditText
+            android:id="@+id/edAlasanPenolakan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvTitle"
+            android:layout_marginLeft="10sp"
+            android:layout_marginRight="10sp"
+            android:background="@drawable/bg_editfield"
+            android:hint="Deskripsikan Alasan Penolakan"
+            android:inputType="textMultiLine"
+            android:imeOptions="actionNext"
+            android:padding="15dp"
+            android:textSize="14sp" />
+
+
+        <TextView
+            android:id="@+id/tvAddPenolakan"
+            android:fontFamily="@font/roboto_medium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/edSatuan"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="10sp"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="10sp"
+            android:layout_marginBottom="10sp"
+            android:background="@drawable/bg_editfield"
+            android:backgroundTint="@color/light_orange"
+            android:gravity="center_horizontal"
+            android:padding="10sp"
+            android:text="Simpan Penolakan"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            tools:ignore="MissingPrefix" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:layout_below="@id/tvAdd">
+
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

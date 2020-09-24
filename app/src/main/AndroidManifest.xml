@@ -22,8 +22,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:icon">
-        <activity android:name=".activity.admin.AddPesananActivity"
-            android:label="Tambah Pesanan"></activity>
+        <activity android:name=".activity.admin.AddAlasanTolakActivity"
+            android:label="Alasan Tolak Pesanan"></activity>
+        <activity
+            android:name=".activity.admin.AddPesananActivity"
+            android:label="Tambah Pesanan" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").

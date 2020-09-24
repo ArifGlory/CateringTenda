@@ -190,6 +190,7 @@ class DetailPesananAdminActivity : BaseActivity() {
                         //convert doc to object
                         pengguna = document.toObject(UserModel::class.java)!!
                         tvPemesan.setText(pengguna.name)
+                        tvPhone.setText(pengguna.phone)
 
                     } else {
                         Log.d(TAG_GET_USER, "No such document")
@@ -226,10 +227,18 @@ class DetailPesananAdminActivity : BaseActivity() {
         var totalPrice = 0
         for (c in 0 until listCart.size){
             var subtotal = listCart.get(c).harga?.times(listCart.get(c).jumlah!!)
-            if (subtotal != null) {
+            var status = listCart.get(c).status
+            if (subtotal != null && !status.equals("tolak")) {
                 totalPrice += subtotal
             }
         }
         tvTotalPriceAdmin.setText("Total Bayar : Rp. "+totalPrice)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        updateUI()
+        getDataPemesan()
+        getDataPesanan()
     }
 }

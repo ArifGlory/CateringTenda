@@ -161,7 +161,8 @@ class DetailPesananActivity : BaseActivity(),PermissionHelper.PermissionListener
         var totalPrice = 0
         for (c in 0 until listCart.size){
             var subtotal = listCart.get(c).harga?.times(listCart.get(c).jumlah!!)
-            if (subtotal != null) {
+            var status = listCart.get(c).status
+            if (subtotal != null && !status.equals("tolak")) {
                 totalPrice += subtotal
             }
         }
@@ -250,7 +251,7 @@ class DetailPesananActivity : BaseActivity(),PermissionHelper.PermissionListener
             dismissLoading()
             if (task.isSuccessful){
                 pesanan.buktiBayar = url
-                showSuccessMessage("Data catering berhasil ditambahkan")
+                showSuccessMessage("Data bukti bayar berhasil ditambahkan")
                 //onBackPressed()
             }else{
                 showLongErrorMessage("Penyimpanan data gagal")

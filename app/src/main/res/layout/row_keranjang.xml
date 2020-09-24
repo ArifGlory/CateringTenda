@@ -22,18 +22,26 @@
             android:layout_marginTop="8dp"
             android:layout_marginBottom="5dp">
 
-            <com.makeramen.roundedimageview.RoundedImageView
-                android:id="@+id/ivKeranjang"
-                fontPath="@string/font_medium"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:textSize="12sp"
-                android:scaleType="centerCrop"
-                app:riv_corner_radius="5dp"
-                android:src="@drawable/ic_placeholder"
-                tools:ignore="MissingPrefix" />
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:id="@+id/rlGambar"
+                android:layout_height="wrap_content">
+
+                <com.makeramen.roundedimageview.RoundedImageView
+                    android:id="@+id/ivKeranjang"
+                    fontPath="@string/font_medium"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_placeholder"
+                    android:textSize="12sp"
+                    app:riv_corner_radius="5dp"
+                    tools:ignore="MissingPrefix" />
+
+            </RelativeLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
