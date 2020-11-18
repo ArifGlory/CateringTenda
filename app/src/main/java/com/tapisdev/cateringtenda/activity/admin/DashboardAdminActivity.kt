@@ -106,6 +106,10 @@ class DashboardAdminActivity : BaseActivity(),
                 val fragment = AdminBerandaFragment.newInstance()
                 addFragment(fragment)
             }
+            R.id.nav_notifikasi -> {
+                val i = Intent(this,ListNotifikasiPembayaranActivity::class.java)
+                startActivity(i)
+            }
         }
         drawer_layout.closeDrawer(GravityCompat.START)
 

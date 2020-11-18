@@ -51,9 +51,14 @@ class DetailPenyediaActivity : BaseActivity() {
             startActivity(i)
         }
         tvAlamat.setOnClickListener {
-            val i = Intent(this,LokasiPenyediaActivity::class.java)
-            i.putExtra("latlon",penyedia.latlon)
-            startActivity(i)
+            if (penyedia.latlon.equals("none")){
+                showInfoMessage("Penyedia ini belum mengkonfirmasi alamatnya")
+            }else{
+                val i = Intent(this,LokasiPenyediaActivity::class.java)
+                i.putExtra("latlon",penyedia.latlon)
+                startActivity(i)
+            }
+
         }
 
         updateUI()

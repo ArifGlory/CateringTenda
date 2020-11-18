@@ -25,14 +25,13 @@ import com.tapisdev.cateringPesanan.adapter.AdapterPesananUser
 import com.tapisdev.cateringtenda.R
 import com.tapisdev.cateringtenda.adapter.AdapterDetailPesanan
 import com.tapisdev.cateringtenda.base.BaseActivity
-import com.tapisdev.cateringtenda.model.Cart
-import com.tapisdev.cateringtenda.model.Pesanan
-import com.tapisdev.cateringtenda.model.UserModel
+import com.tapisdev.cateringtenda.model.*
 import com.tapisdev.cateringtenda.util.PermissionHelper
 import kotlinx.android.synthetic.main.activity_add_catering.*
 import kotlinx.android.synthetic.main.activity_detail_pesanan.*
 import java.io.ByteArrayOutputStream
 import java.io.IOException
+import java.text.SimpleDateFormat
 import java.util.*
 
 class DetailPesananActivity : BaseActivity(),PermissionHelper.PermissionListener {
@@ -59,6 +58,7 @@ class DetailPesananActivity : BaseActivity(),PermissionHelper.PermissionListener
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_pesanan)
+        mUserPref = UserPreference(this)
 
         i = intent
         pesanan = i.getSerializableExtra("pesanan") as Pesanan
@@ -123,7 +123,9 @@ class DetailPesananActivity : BaseActivity(),PermissionHelper.PermissionListener
                 //Log.d(TAG_GET_CATERING, "Datanya : "+document.data)
                 var cart : Cart = document.toObject(Cart::class.java)
                 if (cart.idUser.equals(auth.currentUser?.uid) && cart.idAdmin.equals(pesanan.idAdmin)){
-                    listCart.add(cart)
+                    if (cart.idPesanan.equals(pesanan.pesananId)){
+                        listCart.add(cart)
+                    }
                 }
             }
             countTotalPrice()
@@ -245,8 +247,26 @@ class DetailPesananActivity : BaseActivity(),PermissionHelper.PermissionListener
     }
 
     fun saveBuktiBayar(url : String){
+        val date = getCurrentDateTime()
+        val dateInString = date.toString("yyyy-MM-dd HH:mm:ss")
+
         pDialogLoading.setTitleText("menyimpan data..")
         showInfoMessage("Sedang menyimpan ke database..")
+
+        //simpan ke tabel notifikasi
+        var idNotifikasi = UUID.randomUUID().toString()
+        var tanggalpesan = dateToString(pesanan.tanggalPesan!!)
+        var notifikasi  = NotifikasiPembayaran(
+            idNotifikasi,
+            "Pesanan dari   "+mUserPref.getName()+" telah mengunggah bukti pembayaran",
+            mUserPref.getName(),
+            dateInString,
+            auth.currentUser?.uid,
+            pesanan.pesananId,
+            pesanan.idAdmin
+        )
+        notifikasiRef.document(idNotifikasi).set(notifikasi)
+
         pesanananRef.document(pesanan.pesananId.toString()).update("buktiBayar",url).addOnCompleteListener { task ->
             dismissLoading()
             if (task.isSuccessful){
@@ -260,10 +280,28 @@ class DetailPesananActivity : BaseActivity(),PermissionHelper.PermissionListener
         }
     }
 
+    fun dateToString(tanggal : String): String {
+        val parser = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+        //val formatter = SimpleDateFormat("dd.MM.yyyy HH:mm")
+        val formatter = SimpleDateFormat("dd.MM.yyyy")
+        val output = formatter.format(parser.parse(tanggal))
+
+        return output
+    }
+
     override fun onPermissionCheckDone() {
         val intent = Intent()
         intent.type = "image/*"
         intent.action = Intent.ACTION_GET_CONTENT
         startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST)
+    }
+
+    fun Date.toString(format: String, locale: Locale = Locale.getDefault()): String {
+        val formatter = SimpleDateFormat(format, locale)
+        return formatter.format(this)
+    }
+
+    fun getCurrentDateTime(): Date {
+        return Calendar.getInstance().time
     }
 }

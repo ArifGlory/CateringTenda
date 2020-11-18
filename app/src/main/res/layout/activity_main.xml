@@ -10,16 +10,16 @@
         android:layout_above="@id/rlLoginDetail">
         <TextView
             android:id="@+id/tvTitle2"
-            android:fontFamily="@font/roboto_bold"
+            android:textStyle="bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_above="@+id/ivMain"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
-            android:text="@string/namaAplikasi"
+            android:text="Apem Daring BDL"
             android:textColor="@color/main_blue_color"
-            android:textSize="20sp"
+            android:textSize="18sp"
             tools:ignore="MissingPrefix" />
         <ImageView
             android:layout_width="120dp"
