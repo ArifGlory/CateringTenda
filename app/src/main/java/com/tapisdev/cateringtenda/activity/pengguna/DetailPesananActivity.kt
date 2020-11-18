@@ -258,7 +258,7 @@ class DetailPesananActivity : BaseActivity(),PermissionHelper.PermissionListener
         var tanggalpesan = dateToString(pesanan.tanggalPesan!!)
         var notifikasi  = NotifikasiPembayaran(
             idNotifikasi,
-            "Pesanan dari   "+mUserPref.getName()+" telah mengunggah bukti pembayaran",
+            ""+mUserPref.getName()+" telah mengunggah bukti pembayaran",
             mUserPref.getName(),
             dateInString,
             auth.currentUser?.uid,

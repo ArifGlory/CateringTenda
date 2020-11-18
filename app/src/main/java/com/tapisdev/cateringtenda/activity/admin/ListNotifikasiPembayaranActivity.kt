@@ -1,11 +1,13 @@
 package com.tapisdev.cateringtenda.activity.admin
 
+import android.app.DownloadManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.core.widget.doOnTextChanged
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.firebase.firestore.Query
 import com.tapisdev.cateringtenda.R
 import com.tapisdev.cateringtenda.adapter.AdapterNotifikasiPembayaran
 import com.tapisdev.cateringtenda.base.BaseActivity
@@ -52,7 +54,7 @@ class ListNotifikasiPembayaranActivity : BaseActivity() {
     }
 
     fun getDataMyNotifikasi(){
-        notifikasiRef.get().addOnSuccessListener { result ->
+        notifikasiRef.orderBy("tanggal",Query.Direction.DESCENDING).get().addOnSuccessListener { result ->
             listNotifikasi.clear()
             //Log.d(TAG_GET_CATERING," datanya "+result.documents)
             for (document in result){
