@@ -45,6 +45,7 @@ class EditProfilAdminActivity : BaseActivity(),PermissionHelper.PermissionListen
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_profil_admin)
+        mUserPref = UserPreference(this)
 
         storageReference = FirebaseStorage.getInstance().reference.child("images")
         mUserPref = UserPreference(this)

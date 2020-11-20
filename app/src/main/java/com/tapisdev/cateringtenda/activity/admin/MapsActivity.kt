@@ -5,6 +5,7 @@ import android.location.Location
 import android.location.LocationListener
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -15,6 +16,7 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.tapisdev.cateringtenda.R
 import com.tapisdev.cateringtenda.base.BaseActivity
 import com.tapisdev.cateringtenda.model.SharedVariable
+import com.tapisdev.cateringtenda.model.UserPreference
 import com.tapisdev.cateringtenda.util.PermissionHelper
 import kotlinx.android.synthetic.main.activity_maps.*
 import java.util.ArrayList
@@ -36,6 +38,7 @@ class MapsActivity : BaseActivity(), OnMapReadyCallback,PermissionHelper.Permiss
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
+        mUserPref = UserPreference(this)
 
         permissionHelper = PermissionHelper(this)
         permissionHelper.setPermissionListener(this)
@@ -57,9 +60,23 @@ class MapsActivity : BaseActivity(), OnMapReadyCallback,PermissionHelper.Permiss
         mMap = googleMap
         mMap.setMyLocationEnabled(true)
 
-        val tekno = LatLng(-5.382109, 105.257912)
+        var initialLocation = LatLng(-5.382109, 105.257912)
         val zoomLevel = 16.0f //This goes up to 21
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(tekno,zoomLevel))
+
+        if (mUserPref.getLatlon().equals("none") || mUserPref.getLatlon().equals("")){
+            initialLocation = LatLng(-5.382109, 105.257912)
+        }else{
+            var latlon = mUserPref.getLatlon()!!
+            val index   = latlon.indexOf(",")
+            val lon     = latlon.substring(index+1)
+            val lat     = latlon.substring(0,index)
+            Log.d("latlon","lat : "+lat + "| lon : "+lon)
+            val lokasi = LatLng(lat.toDouble(), lon.toDouble())
+            initialLocation = lokasi
+        }
+
+
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(initialLocation,zoomLevel))
 
         tvSelectLocation.setOnClickListener {
             centerMapLatLon = mMap.projection.visibleRegion.latLngBounds.center
