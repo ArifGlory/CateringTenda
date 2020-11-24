@@ -39,7 +39,7 @@ class KonfirmasiPesanActivity : BaseActivity() {
     }
 
     fun updateUI(){
-        tvTotalPrice.setText("Rp. "+SharedVariable.totalKeranjang)
+        tvTotalPrice.setText("Rp. "+convertRibuan(SharedVariable.totalKeranjang))
     }
 
     fun savePesanan(alamat : String){

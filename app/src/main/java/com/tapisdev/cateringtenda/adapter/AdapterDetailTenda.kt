@@ -15,10 +15,7 @@ import com.tapisdev.cateringtenda.R
 import com.tapisdev.cateringtenda.activity.admin.DetailCateringActivity
 import com.tapisdev.cateringtenda.activity.admin.DetailTendaActivity
 import com.tapisdev.cateringtenda.fragment.AdminCateringFragment
-import com.tapisdev.cateringtenda.model.Catering
-import com.tapisdev.cateringtenda.model.DetailTenda
-import com.tapisdev.cateringtenda.model.Tenda
-import com.tapisdev.cateringtenda.model.UserPreference
+import com.tapisdev.cateringtenda.model.*
 import kotlinx.android.synthetic.main.row_catering.view.*
 import kotlinx.android.synthetic.main.row_detail_tenda.view.*
 import java.io.Serializable
@@ -37,7 +34,7 @@ class AdapterDetailTenda(private val list:ArrayList<DetailTenda>) : RecyclerView
         mUserPref = UserPreference(holder.view.tvNamaDetailTenda.context)
 
         holder.view.tvNamaDetailTenda.text = list?.get(position)?.nama
-        holder.view.tvHargaDetailTenda.text = "Rp. "+list?.get(position)?.harga+" / "+list?.get(position)?.satuan
+        holder.view.tvHargaDetailTenda.text = "Rp. "+SharedVariable.convertRibuan(list?.get(position)?.harga!!)+" / "+list?.get(position)?.satuan
 
 
         holder.view.lineDetailTenda.setOnClickListener {

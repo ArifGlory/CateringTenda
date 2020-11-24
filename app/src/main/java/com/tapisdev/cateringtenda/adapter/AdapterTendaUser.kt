@@ -48,7 +48,7 @@ class AdapterTendaUser(private val list:ArrayList<Tenda>) : RecyclerView.Adapter
 
         holder.view.tvName.text = list?.get(position)?.nama
         holder.view.tvDeskripsiTenda.text = list?.get(position)?.deksripsi
-        holder.view.tvPrice.text = "Rp. "+list?.get(position)?.harga + " / "+list?.get(position)?.satuan
+        holder.view.tvPrice.text = "Rp. "+SharedVariable.convertRibuan(list?.get(position)?.harga!!) + " / "+list?.get(position)?.satuan
 
         Glide.with(holder.view.ivCatering.context)
             .load(list?.get(position)?.foto)

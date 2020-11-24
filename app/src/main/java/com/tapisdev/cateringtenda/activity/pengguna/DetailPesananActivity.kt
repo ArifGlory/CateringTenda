@@ -168,7 +168,7 @@ class DetailPesananActivity : BaseActivity(),PermissionHelper.PermissionListener
                 totalPrice += subtotal
             }
         }
-        tvTotalPrice.setText("Total Bayar : Rp. "+totalPrice)
+        tvTotalPrice.setText("Total Bayar : Rp. "+convertRibuan(totalPrice))
     }
 
     fun showDialogBuktiBayar(){

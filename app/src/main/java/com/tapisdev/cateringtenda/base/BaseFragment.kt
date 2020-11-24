@@ -13,7 +13,10 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreSettings
 import com.tapisdev.cateringtenda.model.UserPreference
 import es.dmoral.toasty.Toasty
+import java.text.DecimalFormat
+import java.text.NumberFormat
 import java.text.SimpleDateFormat
+import java.util.*
 
 open class BaseFragment : Fragment() {
 
@@ -86,6 +89,15 @@ open class BaseFragment : Fragment() {
         val output = formatter.format(parser.parse(tanggal))
 
         return output
+    }
+
+    fun convertRibuan(angka : Int) :String {
+        var hasil = ""
+        val nf = NumberFormat.getNumberInstance(Locale.GERMAN)
+        val df = nf as DecimalFormat
+        hasil = ""+df.format(angka)
+
+        return  hasil
     }
 
     override fun onStart() {

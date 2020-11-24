@@ -42,7 +42,7 @@ class AdapterCateringUser(private val list:ArrayList<Catering>) : RecyclerView.A
     override fun onBindViewHolder(holder: Holder, position: Int) {
 
         holder.view.tvName.text = list?.get(position)?.nama
-        holder.view.tvPrice.text = "Rp. "+list?.get(position)?.harga
+        holder.view.tvPrice.text = "Rp. "+SharedVariable.convertRibuan(list?.get(position)?.harga!!)
         holder.view.tvDeskripsiCatering.text = list?.get(position)?.deksripsi
 
         Glide.with(holder.view.ivCatering.context)

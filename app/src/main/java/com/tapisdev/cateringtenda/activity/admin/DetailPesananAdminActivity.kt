@@ -232,7 +232,7 @@ class DetailPesananAdminActivity : BaseActivity() {
                 totalPrice += subtotal
             }
         }
-        tvTotalPriceAdmin.setText("Total Bayar : Rp. "+totalPrice)
+        tvTotalPriceAdmin.setText("Total Bayar : Rp. "+convertRibuan(totalPrice))
     }
 
     override fun onResume() {

@@ -15,6 +15,7 @@ import com.tapisdev.cateringtenda.R
 import com.tapisdev.cateringtenda.activity.admin.AddAlasanTolakActivity
 import com.tapisdev.cateringtenda.activity.pengguna.KeranjangActivity
 import com.tapisdev.cateringtenda.model.Cart
+import com.tapisdev.cateringtenda.model.SharedVariable
 import com.tapisdev.cateringtenda.model.UserPreference
 import kotlinx.android.synthetic.main.row_catering_user.view.*
 import kotlinx.android.synthetic.main.row_catering_user.view.tvName
@@ -43,7 +44,7 @@ class AdapterDetailPesanan(private val list:ArrayList<Cart>) : RecyclerView.Adap
         holder.view.tvName.text = list?.get(position)?.nama
         holder.view.tvJenis.text = list?.get(position)?.jenis
         holder.view.tvJumlahDipesan.text = "Jumlah Dipesan : "+list?.get(position)?.jumlah
-        holder.view.tvPrice.text = "Rp. "+list?.get(position)?.harga
+        holder.view.tvPrice.text = "Rp. "+SharedVariable.convertRibuan(list?.get(position)?.harga!!)
 
         if (mUserPref.getJenisUser().equals("pengguna")){
             holder.view.ivTolak.visibility = View.INVISIBLE
