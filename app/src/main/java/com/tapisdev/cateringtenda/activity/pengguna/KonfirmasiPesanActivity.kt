@@ -46,10 +46,13 @@ class KonfirmasiPesanActivity : BaseActivity() {
         showLoading(this)
         val date = getCurrentDateTime()
         val dateInString = date.toString("yyyy-MM-dd HH:mm:ss")
+        val dateForID = date.toString("MMddHHmmss")
        Log.d("dateNow",""+dateInString)
 
         var idAdmin = SharedVariable.listCart.get(0).idAdmin
-        var idPesanan = UUID.randomUUID().toString()
+        //var idPesanan = UUID.randomUUID().toString()
+        var idPesanan = "P-"+dateForID
+        Log.d("pesanan",""+idPesanan)
 
         var pesanan  = Pesanan(idPesanan,
             idAdmin,
@@ -57,7 +60,8 @@ class KonfirmasiPesanActivity : BaseActivity() {
             alamat,
             dateInString,
             "",
-            "menunggu konfirmasi"
+            "menunggu konfirmasi",
+            ""
             )
         pesanananRef.document(idPesanan).set(pesanan).addOnCompleteListener { task ->
             if (task.isSuccessful){
