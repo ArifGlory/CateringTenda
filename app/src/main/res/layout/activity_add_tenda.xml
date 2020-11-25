@@ -29,9 +29,10 @@
             tools:ignore="MissingPrefix" />
 
     </RelativeLayout>
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:layout_alignParentBottom="true"
         android:id="@+id/rlRegistration"
         android:background="@drawable/bg_top_shap_10">
@@ -114,6 +115,22 @@
             android:paddingRight="10sp"
             android:textSize="14sp" />
 
+        <EditText
+            android:id="@+id/edStok"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_below="@id/edDeskripsi"
+            android:layout_marginLeft="10sp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10sp"
+            android:background="@drawable/bg_editfield"
+            android:hint="stok"
+            android:inputType="number"
+            android:imeOptions="actionGo"
+            android:paddingLeft="10sp"
+            android:paddingRight="10sp"
+            android:textSize="14sp" />
+
         <TextView
             android:id="@+id/tvAdd"
             android:fontFamily="@font/roboto_medium"
@@ -141,5 +158,5 @@
             android:layout_below="@id/tvAdd">
 
         </LinearLayout>
-    </RelativeLayout>
+    </LinearLayout>
 </RelativeLayout>

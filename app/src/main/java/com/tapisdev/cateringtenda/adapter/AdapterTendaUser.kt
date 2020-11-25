@@ -48,6 +48,7 @@ class AdapterTendaUser(private val list:ArrayList<Tenda>) : RecyclerView.Adapter
 
         holder.view.tvName.text = list?.get(position)?.nama
         holder.view.tvDeskripsiTenda.text = list?.get(position)?.deksripsi
+        holder.view.tvStok.text = "Stok "+list?.get(position)?.stok
         holder.view.tvPrice.text = "Rp. "+SharedVariable.convertRibuan(list?.get(position)?.harga!!) + " / "+list?.get(position)?.satuan
 
         Glide.with(holder.view.ivCatering.context)
@@ -74,9 +75,14 @@ class AdapterTendaUser(private val list:ArrayList<Tenda>) : RecyclerView.Adapter
 
 
         tvAdd.setOnClickListener {
+
+            var jumlah = Integer.parseInt(edJumlah.text.toString())
             if (edJumlah.text.toString().equals("") || edJumlah.text.toString().length == 0){
                 holder.view.ivCatering.context?.let { Toasty.error(it, "Anda belum memasukkan jumlah pemesanan", Toast.LENGTH_SHORT, true).show() }
-            }else{
+            }else if (jumlah > list?.get(position)?.stok!!){
+                Toasty.error(holder.view.tvPrice.context, "Stok tidak mencukupi", Toast.LENGTH_SHORT, true).show()
+            }
+            else{
                 var jml = Integer.parseInt(edJumlah.text.toString())
                 var cart : Cart = Cart(
                     UUID.randomUUID().toString(),

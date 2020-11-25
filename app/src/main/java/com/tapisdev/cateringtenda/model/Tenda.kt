@@ -13,5 +13,6 @@ data class Tenda(
     var foto: String? = "",
     var deksripsi: String? = "",
     var idAdmin: String? = "",
-    var satuan: String? = ""
+    var satuan: String? = "",
+    var stok: Int? = 0
 ) : Parcelable, java.io.Serializable

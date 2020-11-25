@@ -68,7 +68,8 @@
                     tools:ignore="MissingPrefix" />
             </RelativeLayout>
 
-            <RelativeLayout
+            <LinearLayout
+                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -104,6 +105,21 @@
                     android:textColor="@color/light_orange"
                     android:textSize="12sp"
                     tools:ignore="MissingPrefix" />
+                <TextView
+                    android:id="@+id/tvStok"
+                    android:layout_below="@+id/tvName"
+                    android:fontFamily="@font/roboto_bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:text="stok"
+                    android:paddingLeft="5dp"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    android:textColor="@color/green"
+                    android:textSize="11sp"
+                    tools:ignore="MissingPrefix" />
 
                 <TextView
                     android:id="@+id/tvDeskripsiTenda"
@@ -120,7 +136,7 @@
                     android:textColor="@color/black"
                     android:textSize="10sp"
                     tools:ignore="MissingPrefix" />
-            </RelativeLayout>
+            </LinearLayout>
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>

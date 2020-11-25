@@ -89,6 +89,7 @@ class AddTendaActivity : BaseActivity(),PermissionHelper.PermissionListener {
         var getHarga = edHarga.text.toString()
         var getDeskripsi = edDeskripsi.text.toString()
         var getSatuan = edSatuan.text.toString()
+        var getStok = edStok.text.toString()
 
         if (getName.equals("") || getName.length == 0){
             showErrorMessage("Nama Belum diisi")
@@ -98,16 +99,20 @@ class AddTendaActivity : BaseActivity(),PermissionHelper.PermissionListener {
             showErrorMessage("Deskripsi Belum diisi")
         }else if (getSatuan.equals("") || getSatuan.length == 0){
             showErrorMessage("Satuan Belum diisi")
+        }else if (getStok.equals("") || getStok.length == 0){
+            showErrorMessage("Stok Belum diisi")
         }
         else {
             var harga = Integer.parseInt(getHarga)
+            var stok = Integer.parseInt(getStok)
             tendaModel = Tenda("",
                 getName,
                 harga,
                 "",
                 getDeskripsi,
                 auth.currentUser?.uid,
-                getSatuan
+                getSatuan,
+                stok
             )
             uploadTenda()
         }

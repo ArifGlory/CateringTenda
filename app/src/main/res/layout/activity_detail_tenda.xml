@@ -140,9 +140,10 @@
             tools:ignore="MissingPrefix" />
 
     </LinearLayout>
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:layout_alignParentBottom="true"
         android:id="@+id/rlRegistration"
         android:background="@drawable/bg_top_shap_10">
@@ -225,6 +226,22 @@
             android:paddingRight="10sp"
             android:textSize="14sp" />
 
+        <EditText
+            android:id="@+id/edStokDetail"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_below="@id/edDeskripsi"
+            android:layout_marginLeft="10sp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10sp"
+            android:background="@drawable/bg_editfield"
+            android:hint="Stok"
+            android:inputType="number"
+            android:imeOptions="actionGo"
+            android:paddingLeft="10sp"
+            android:paddingRight="10sp"
+            android:textSize="14sp" />
+
         <TextView
             android:id="@+id/tvSaveEdit"
             android:visibility="invisible"
@@ -246,5 +263,5 @@
             android:textSize="15sp"
             tools:ignore="MissingPrefix" />
 
-    </RelativeLayout>
+    </LinearLayout>
 </RelativeLayout>

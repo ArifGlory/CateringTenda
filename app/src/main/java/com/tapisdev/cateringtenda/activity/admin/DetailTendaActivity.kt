@@ -108,6 +108,7 @@ class DetailTendaActivity : BaseActivity(), PermissionHelper.PermissionListener 
         var getHarga = edHarga.text.toString()
         var getDeskripsi = edDeskripsi.text.toString()
         var getSatuan = edSatuan.text.toString()
+        var getStok = edStokDetail.text.toString()
 
         if (getName.equals("") || getName.length == 0){
             showErrorMessage("Nama Belum diisi")
@@ -117,20 +118,25 @@ class DetailTendaActivity : BaseActivity(), PermissionHelper.PermissionListener 
             showErrorMessage("Deskripsi Belum diisi")
         }else if (getSatuan.equals("") || getSatuan.length == 0){
             showErrorMessage("Satuan Belum diisi")
+        }else if (getStok.equals("") || getStok.length == 0){
+            showErrorMessage("Stok Belum diisi")
         }
         else if (fileUri == null) {
             val hrg = Integer.parseInt(getHarga)
-            updateDataOnly(getName,hrg,getDeskripsi)
+            val stok = Integer.parseInt(getStok)
+            updateDataOnly(getName,hrg,getDeskripsi,stok)
         }else{
             val hrg = Integer.parseInt(getHarga)
-            uploadAndUpdate(getName,hrg,getDeskripsi)
+            val stok = Integer.parseInt(getStok)
+            uploadAndUpdate(getName,hrg,getDeskripsi,stok)
         }
     }
 
-    fun updateDataOnly(name : String,harga : Int,deskripsi : String){
+    fun updateDataOnly(name : String,harga : Int,deskripsi : String,stok : Int){
         showLoading(this)
         tendaRef.document(tenda.tendaId.toString()).update("nama",name)
         tendaRef.document(tenda.tendaId.toString()).update("harga",harga)
+        tendaRef.document(tenda.tendaId.toString()).update("stok",stok)
         tendaRef.document(tenda.tendaId.toString()).update("deksripsi",deskripsi).addOnCompleteListener { task ->
             dismissLoading()
             if (task.isSuccessful){
@@ -143,7 +149,7 @@ class DetailTendaActivity : BaseActivity(), PermissionHelper.PermissionListener 
         }
     }
 
-    fun uploadAndUpdate(name : String,harga : Int,deskripsi : String){
+    fun uploadAndUpdate(name : String,harga : Int,deskripsi : String,stok : Int){
         showLoading(this)
         if (fileUri != null){
             val baos = ByteArrayOutputStream()
@@ -171,6 +177,7 @@ class DetailTendaActivity : BaseActivity(), PermissionHelper.PermissionListener 
 
                         tendaRef.document(tenda.tendaId.toString()).update("nama",name)
                         tendaRef.document(tenda.tendaId.toString()).update("harga",harga)
+                        tendaRef.document(tenda.tendaId.toString()).update("stok",stok)
                         tendaRef.document(tenda.tendaId.toString()).update("foto",url)
                         tendaRef.document(tenda.tendaId.toString()).update("deksripsi",deskripsi).addOnCompleteListener { task ->
                             dismissLoading()
@@ -204,6 +211,7 @@ class DetailTendaActivity : BaseActivity(), PermissionHelper.PermissionListener 
             edHarga.setText(tenda.harga.toString())
             edDeskripsi.setText(tenda.deksripsi)
             edSatuan.setText(tenda.satuan)
+            edStokDetail.setText(tenda.stok.toString())
             tvHintFoto.visibility = View.INVISIBLE
             tvSaveEdit.visibility = View.INVISIBLE
 
@@ -215,6 +223,7 @@ class DetailTendaActivity : BaseActivity(), PermissionHelper.PermissionListener 
             edHarga.isEnabled = false
             edDeskripsi.isEnabled = false
             edSatuan.isEnabled = false
+            edStokDetail.isEnabled = false
             ivCatering.isEnabled = false
             tvSaveEdit.isEnabled = false
         }else if (state.equals("edit")){
@@ -225,6 +234,7 @@ class DetailTendaActivity : BaseActivity(), PermissionHelper.PermissionListener 
             edHarga.isEnabled = true
             edDeskripsi.isEnabled = true
             edSatuan.isEnabled = true
+            edStokDetail.isEnabled = true
             ivCatering.isEnabled = true
             tvSaveEdit.isEnabled= true
         }
