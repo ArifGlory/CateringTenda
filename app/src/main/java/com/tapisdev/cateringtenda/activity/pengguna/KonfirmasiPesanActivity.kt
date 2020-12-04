@@ -61,6 +61,7 @@ class KonfirmasiPesanActivity : BaseActivity() {
             dateInString,
             "",
             "menunggu konfirmasi",
+            "",
             ""
             )
         pesanananRef.document(idPesanan).set(pesanan).addOnCompleteListener { task ->

@@ -6,14 +6,15 @@ import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.AdapterView.OnItemSelectedListener
-import androidx.core.view.get
 import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.auth.FirebaseAuth
 import com.tapisdev.cateringtenda.MainActivity
 import com.tapisdev.cateringtenda.R
 import com.tapisdev.cateringtenda.base.BaseActivity
 import com.tapisdev.cateringtenda.model.UserModel
 import com.tapisdev.cateringtenda.model.UserPreference
 import kotlinx.android.synthetic.main.activity_register.*
+
 
 class RegisterActivity : BaseActivity() {
 
@@ -101,10 +102,8 @@ class RegisterActivity : BaseActivity() {
                     userModel.uId = userId
                     userRef.document(userId).set(userModel).addOnCompleteListener { task ->
                         if (task.isSuccessful){
-                            dismissLoading()
-                            showLongSuccessMessage("Pendaftaran Berhasil, Silakan Login Untuk Melanjutkan")
-                            val i = Intent(applicationContext,MainActivity::class.java)
-                            startActivity(i)
+                            sendVerificationEmail()
+
                         }else{
                             dismissLoading()
                             showLongErrorMessage("Error pendaftaran, coba lagi nanti ")
@@ -125,6 +124,27 @@ class RegisterActivity : BaseActivity() {
 
             }
         })
+    }
+
+    private fun sendVerificationEmail() {
+        val user = FirebaseAuth.getInstance().currentUser
+        user!!.sendEmailVerification()
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) { // email sent
+                    // after email is sent just logout the user and finish this activity
+                    FirebaseAuth.getInstance().signOut()
+                    dismissLoading()
+
+                    showLongSuccessMessage("Pendaftaran Berhasil, Silakan Verifikasi Email Anda")
+                    val i = Intent(applicationContext,MainActivity::class.java)
+                    startActivity(i)
+                    finish()
+                } else {
+                    dismissLoading()
+                    showErrorMessage("Error pengiriman verifikasi email")
+                    Log.d("sendEmail","err : "+task.exception)
+                }
+            }
     }
 }
 
