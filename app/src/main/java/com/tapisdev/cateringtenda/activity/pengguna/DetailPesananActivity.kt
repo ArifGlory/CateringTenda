@@ -83,6 +83,7 @@ class DetailPesananActivity : BaseActivity(),PermissionHelper.PermissionListener
         ivBack.setOnClickListener {
             onBackPressed()
         }
+        tvDeskripsiPenyedia.setText("Kode Pesanan : "+pesanan.pesananId?.take(8)!!.toUpperCase())
 
         getDataPesanan()
         getDataPenyedia()
@@ -146,7 +147,7 @@ class DetailPesananActivity : BaseActivity(),PermissionHelper.PermissionListener
                         Log.d(TAG_GET_USER, "DocumentSnapshot data: " + document.data)
                         //convert doc to object
                         penyedia = document.toObject(UserModel::class.java)!!
-                        tvDeskripsiPenyedia.setText(penyedia.name+ "\n "+penyedia.deskripsi)
+                        //tvDeskripsiPenyedia.setText(penyedia.name+ "\n "+penyedia.deskripsi)
 
                     } else {
                         Log.d(TAG_GET_USER, "No such document")

@@ -88,9 +88,9 @@
                         android:layout_margin="5dp"
                         android:layout_below="@+id/tvTentang"
                         android:textColor="@color/black"
+                        android:textStyle="bold"
                         android:id="@+id/tvDeskripsiPenyedia"
                         android:layout_marginRight="5dp"
-                        android:fontFamily="@font/roboto_bold"
                         tools:ignore="MissingPrefix" />
 
 
