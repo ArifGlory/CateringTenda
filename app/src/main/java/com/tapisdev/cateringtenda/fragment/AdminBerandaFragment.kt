@@ -80,7 +80,7 @@ class AdminBerandaFragment : BaseFragment() {
         tvNamaPenyedia.setText(mUserPref.getName())
         tvAlamat.setText("Alamat : "+mUserPref.getAlamat())
         tvTelepon.setText("Kontak : "+mUserPref.getPhone())
-        tvDeskripsi.setText("Deskripsi : "+mUserPref.getDeskripsi())
+        tvDeskripsi.setText("No. Rekening : "+mUserPref.getDeskripsi())
     }
 
     fun getDataMyCatering(){

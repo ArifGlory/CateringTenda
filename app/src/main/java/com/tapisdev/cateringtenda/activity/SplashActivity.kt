@@ -8,6 +8,7 @@ import com.tapisdev.cateringtenda.MainActivity
 import com.tapisdev.cateringtenda.R
 import com.tapisdev.cateringtenda.activity.admin.DashboardAdminActivity
 import com.tapisdev.cateringtenda.activity.pengguna.HomeUserActivity
+import com.tapisdev.cateringtenda.activity.superadmin.HomeSuperadminActivity
 import com.tapisdev.cateringtenda.base.BaseActivity
 import com.tapisdev.cateringtenda.model.UserPreference
 
@@ -43,7 +44,11 @@ class SplashActivity : BaseActivity() {
                 }else if(mUserPref.getJenisUser().equals("pengguna")){
                     val i = Intent(applicationContext,HomeUserActivity::class.java)
                     startActivity(i)
-                }else{
+                }else if(mUserPref.getJenisUser().equals("superadmin")){
+                    val i = Intent(applicationContext,HomeSuperadminActivity::class.java)
+                    startActivity(i)
+                }
+                else{
                     val i = Intent(applicationContext,MainActivity::class.java)
                     startActivity(i)
                 }

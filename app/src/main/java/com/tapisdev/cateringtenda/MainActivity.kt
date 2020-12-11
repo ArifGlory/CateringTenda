@@ -92,6 +92,7 @@ class MainActivity : BaseActivity() {
             // email is not verified, so just prompt the message to the user and restart this activity.
             dismissLoading()
             showErrorMessage("Anda belum melakukan verifikasi pendaftaran di email")
+            //user.sendEmailVerification()
             FirebaseAuth.getInstance().signOut()
             //restart this activity
         }

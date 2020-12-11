@@ -73,4 +73,5 @@
     <string name="namaAplikasi">Aplikasi Pemesanan Catering dan Tenda</string>
     <string name="title_activity_lokasi_penyedia">Map</string>
     <string name="infoDetailPesanan">Jika ada pesanan ditolak, klik pada text (Ditolak) / gambar pesanan untuk melihat alasan penolakan</string>
+    <string name="title_activity_home_superadmin">HomeSuperadminActivity</string>
 </resources>

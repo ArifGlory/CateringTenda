@@ -179,8 +179,10 @@ class DetailPesananActivity : BaseActivity(),PermissionHelper.PermissionListener
         dialog.setContentView(R.layout.dlg_bukti_bayar)
         ivBuktiBayar = dialog.findViewById(R.id.ivBuktiBayar) as ImageView
         val tvClose = dialog.findViewById(R.id.tvClose) as TextView
+        val tvNorek = dialog.findViewById(R.id.tvNorek) as TextView
         val tvSimpan = dialog.findViewById(R.id.tvSimpan) as TextView
 
+        tvNorek.setText(penyedia.deskripsi)
         if(pesanan.buktiBayar.equals("")){
             ivBuktiBayar.setImageResource(R.drawable.ic_placeholder)
         }else{

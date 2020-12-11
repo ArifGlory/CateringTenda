@@ -22,8 +22,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:icon">
-        <activity android:name=".activity.admin.ListNotifikasiPembayaranActivity"
+        <activity android:name=".activity.superadmin.DetailPenggunaActivity"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".activity.superadmin.HomeSuperadminActivity"
+            android:label="Dashboard SuperAdmin"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.admin.ListNotifikasiPembayaranActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.admin.AddAlasanTolakActivity"
             android:label="Alasan Tolak Pesanan" />
