@@ -140,10 +140,16 @@ class HomeSuperadminActivity : BaseActivity(),NavigationView.OnNavigationItemSel
                 addFragment(fragment)
             }
             R.id.nav_tenda -> {
-
+                val fragment = AdminTendaFragment.newInstance()
+                addFragment(fragment)
+            }
+            R.id.nav_catering ->{
+                val fragment = AdminCateringFragment.newInstance()
+                addFragment(fragment)
             }
             R.id.nav_pesanan -> {
-
+                val fragment = AdminPesananFragment.newInstance()
+                addFragment(fragment)
             }
             R.id.nav_logout -> {
                 auth.signOut()

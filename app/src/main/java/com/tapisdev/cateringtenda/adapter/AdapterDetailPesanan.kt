@@ -46,7 +46,7 @@ class AdapterDetailPesanan(private val list:ArrayList<Cart>) : RecyclerView.Adap
         holder.view.tvJumlahDipesan.text = "Jumlah Dipesan : "+list?.get(position)?.jumlah
         holder.view.tvPrice.text = "Rp. "+SharedVariable.convertRibuan(list?.get(position)?.harga!!)
 
-        if (mUserPref.getJenisUser().equals("pengguna")){
+        if (mUserPref.getJenisUser().equals("pengguna") || mUserPref.getJenisUser().equals("superadmin")){
             holder.view.ivTolak.visibility = View.INVISIBLE
             holder.view.ivTolak.isEnabled = false
         }

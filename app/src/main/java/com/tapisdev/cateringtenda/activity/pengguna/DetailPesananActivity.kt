@@ -123,10 +123,8 @@ class DetailPesananActivity : BaseActivity(),PermissionHelper.PermissionListener
             for (document in result){
                 //Log.d(TAG_GET_CATERING, "Datanya : "+document.data)
                 var cart : Cart = document.toObject(Cart::class.java)
-                if (cart.idUser.equals(auth.currentUser?.uid) && cart.idAdmin.equals(pesanan.idAdmin)){
-                    if (cart.idPesanan.equals(pesanan.pesananId)){
-                        listCart.add(cart)
-                    }
+                if (cart.idPesanan.equals(pesanan.pesananId)){
+                    listCart.add(cart)
                 }
             }
             countTotalPrice()
@@ -195,7 +193,9 @@ class DetailPesananActivity : BaseActivity(),PermissionHelper.PermissionListener
             dialog.dismiss()
         }
         ivBuktiBayar.setOnClickListener {
-           launchGallery()
+            if (mUserPref.getJenisUser().equals("pengguna")){
+                launchGallery()
+            }
         }
         dialog.show()
     }

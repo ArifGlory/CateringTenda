@@ -16,6 +16,7 @@ import com.google.firebase.storage.StorageReference
 import com.tapisdev.cateringtenda.R
 import com.tapisdev.cateringtenda.base.BaseActivity
 import com.tapisdev.cateringtenda.model.Catering
+import com.tapisdev.cateringtenda.model.UserPreference
 import com.tapisdev.cateringtenda.util.PermissionHelper
 import kotlinx.android.synthetic.main.activity_add_catering.*
 import kotlinx.android.synthetic.main.activity_detail_catering.*
@@ -45,6 +46,7 @@ class DetailCateringActivity : BaseActivity(),PermissionHelper.PermissionListene
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_catering)
+        mUserPref = UserPreference(this)
 
         i = intent
         catering = i.getSerializableExtra("catering") as Catering
@@ -202,6 +204,14 @@ class DetailCateringActivity : BaseActivity(),PermissionHelper.PermissionListene
             edDeskripsi.isEnabled = false
             ivCatering.isEnabled = false
             tvSaveEdit.isEnabled = false
+
+            if (mUserPref.getJenisUser().equals("superadmin")){
+                tvEdit.visibility = View.GONE
+                tvEdit.isEnabled = false
+
+                tvDelete.visibility = View.GONE
+                tvDelete.isEnabled = false
+            }
         }else if (state.equals("edit")){
             tvHintFoto.visibility = View.VISIBLE
             tvSaveEdit.visibility = View.VISIBLE

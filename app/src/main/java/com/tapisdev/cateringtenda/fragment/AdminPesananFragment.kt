@@ -20,6 +20,7 @@ import com.tapisdev.cateringtenda.adapter.AdapterCatering
 import com.tapisdev.cateringtenda.base.BaseFragment
 import com.tapisdev.cateringtenda.model.Catering
 import com.tapisdev.cateringtenda.model.Pesanan
+import com.tapisdev.cateringtenda.model.UserPreference
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -43,6 +44,7 @@ class AdminPesananFragment : BaseFragment() {
         rvPesanan = root.findViewById(R.id.rvPesanan)
         animation_view = root.findViewById(R.id.animation_view)
         edSearchPesanan = root.findViewById(R.id.edSearchPesanan)
+        mUserPref = UserPreference(requireContext())
 
         adapter = AdapterPesananUser(listPesanan)
 
@@ -84,8 +86,12 @@ class AdminPesananFragment : BaseFragment() {
             for (document in result){
                 //Log.d(TAG_GET_CATERING, "Datanya : "+document.data)
                 var pesanan : Pesanan = document.toObject(Pesanan::class.java)
-                if (pesanan.idAdmin.equals(auth.currentUser?.uid)){
+                if (mUserPref.getJenisUser().equals("superadmin")){
                     listPesanan.add(pesanan)
+                }else{
+                    if (pesanan.idAdmin.equals(auth.currentUser?.uid)){
+                        listPesanan.add(pesanan)
+                    }
                 }
 
             }

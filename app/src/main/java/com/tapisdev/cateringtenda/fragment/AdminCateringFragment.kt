@@ -16,6 +16,7 @@ import com.tapisdev.cateringtenda.activity.admin.AddCateringActivity
 import com.tapisdev.cateringtenda.adapter.AdapterCatering
 import com.tapisdev.cateringtenda.base.BaseFragment
 import com.tapisdev.cateringtenda.model.Catering
+import com.tapisdev.cateringtenda.model.UserPreference
 import kotlinx.android.synthetic.main.fragment_admin_tenda.*
 
 class AdminCateringFragment : BaseFragment() {
@@ -38,6 +39,7 @@ class AdminCateringFragment : BaseFragment() {
         rvCatering = root.findViewById(R.id.rvCatering)
         fab = root.findViewById(R.id.fab)
         edSearchCatering = root.findViewById(R.id.edSearchCatering)
+        mUserPref = UserPreference(requireContext())
 
         adapter = AdapterCatering(listCatering)
 
@@ -66,7 +68,10 @@ class AdminCateringFragment : BaseFragment() {
             adapter.notifyDataSetChanged()
         }
 
-
+        if (mUserPref.getJenisUser().equals("superadmin")){
+            fab.visibility = View.GONE
+            fab.isEnabled = false
+        }
 
         getDataMyCatering()
         return root
@@ -89,8 +94,12 @@ class AdminCateringFragment : BaseFragment() {
                 //Log.d(TAG_GET_CATERING, "Datanya : "+document.data)
                 var catering : Catering = document.toObject(Catering::class.java)
                 catering.cateringId = document.id
-                if (catering.idAdmin.equals(auth.currentUser?.uid)){
+                if (mUserPref.getJenisUser().equals("superadmin")){
                     listCatering.add(catering)
+                }else{
+                    if (catering.idAdmin.equals(auth.currentUser?.uid)){
+                        listCatering.add(catering)
+                    }
                 }
             }
             if (listCatering.size == 0){

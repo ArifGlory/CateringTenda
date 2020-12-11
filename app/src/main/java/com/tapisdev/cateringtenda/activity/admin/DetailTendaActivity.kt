@@ -17,6 +17,7 @@ import com.google.firebase.storage.StorageReference
 import com.tapisdev.cateringtenda.R
 import com.tapisdev.cateringtenda.base.BaseActivity
 import com.tapisdev.cateringtenda.model.Tenda
+import com.tapisdev.cateringtenda.model.UserPreference
 import com.tapisdev.cateringtenda.util.PermissionHelper
 import kotlinx.android.synthetic.main.activity_detail_tenda.*
 import java.io.ByteArrayOutputStream
@@ -41,6 +42,7 @@ class DetailTendaActivity : BaseActivity(), PermissionHelper.PermissionListener 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_tenda)
+        mUserPref = UserPreference(this)
 
         i = intent
         tenda = i.getSerializableExtra("tenda") as Tenda
@@ -226,6 +228,14 @@ class DetailTendaActivity : BaseActivity(), PermissionHelper.PermissionListener 
             edStokDetail.isEnabled = false
             ivCatering.isEnabled = false
             tvSaveEdit.isEnabled = false
+
+            if (mUserPref.getJenisUser().equals("superadmin")){
+                tvEdit.visibility = View.GONE
+                tvEdit.isEnabled = false
+
+                tvDelete.visibility = View.GONE
+                tvDelete.isEnabled = false
+            }
         }else if (state.equals("edit")){
             tvHintFoto.visibility = View.VISIBLE
             tvSaveEdit.visibility = View.VISIBLE

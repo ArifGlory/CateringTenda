@@ -20,6 +20,7 @@ import com.tapisdev.cateringtenda.adapter.AdapterTenda
 import com.tapisdev.cateringtenda.base.BaseFragment
 import com.tapisdev.cateringtenda.model.Catering
 import com.tapisdev.cateringtenda.model.Tenda
+import com.tapisdev.cateringtenda.model.UserPreference
 import kotlinx.android.synthetic.main.fragment_admin_tenda.*
 
 class AdminTendaFragment : BaseFragment() {
@@ -43,6 +44,7 @@ class AdminTendaFragment : BaseFragment() {
         rvTenda = root.findViewById(R.id.rvTenda)
         fab = root.findViewById(R.id.fab)
         edSearchTenda = root.findViewById(R.id.edSearchTenda)
+        mUserPref = UserPreference(requireContext())
 
         adapter = AdapterTenda(listTenda)
 
@@ -71,6 +73,10 @@ class AdminTendaFragment : BaseFragment() {
             adapter.notifyDataSetChanged()
         }
 
+        if (mUserPref.getJenisUser().equals("superadmin")){
+            fab.visibility = View.GONE
+            fab.isEnabled = false
+        }
 
         getDataMyTenda()
         return root
@@ -94,8 +100,12 @@ class AdminTendaFragment : BaseFragment() {
 
                 var tenda : Tenda = document.toObject(Tenda::class.java)
                 tenda.tendaId = document.id
-                if (tenda.idAdmin.equals(auth.currentUser?.uid)){
+                if (mUserPref.getJenisUser().equals("superadmin")){
                     listTenda.add(tenda)
+                }else{
+                    if (tenda.idAdmin.equals(auth.currentUser?.uid)){
+                        listTenda.add(tenda)
+                    }
                 }
             }
             if (listTenda.size == 0){
